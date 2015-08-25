@@ -1,0 +1,13 @@
+<apex:component >
+<!--controller="WebFormController">-->
+
+<!--                    <apex:pageBlockSection title="Reqest Field" >
+                    <apex:form >
+                    <body>
+                    text 1: &nbsp; &nbsp; <apex:inputText onchange="{!RequestField}"/> <br/> <br/>
+                    text 2: &nbsp; &nbsp; <apex:inputText onchange="{!RequestField}"/> <br/> <br/>                    
+                    </body>
+                    </apex:form>
+                   </apex:pageBlockSection> -->
+
+</apex:component>

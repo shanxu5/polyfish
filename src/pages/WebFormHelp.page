@@ -1,0 +1,28 @@
+<apex:page showHeader="False" sidebar="False">
+
+<H1>Template Requirements: 
+•	Format is .CSV file
+•	Max of 200 rows
+Click on the template to download and save it to your local computer.  When the file is first downloaded it will be in the correct format, .CSV, if it is saved as anything other than .CSV, here are instructions to re-save it as .CSV.
+How to save file as .CSV:
+•	Open the Import file and select: File | Save As
+•	Change Save As Type to .CSV (Comma Delimited)
+•	Click OK
+•	Click Yes
+•	This will convert these file types to .CSV
+
+In order to add leading zeros to any field, the field type must be text.  Here are instructions on how to change a field type to text. 
+•	Select the column you would like to format
+•	Right click 
+•	Click on Format Cells…
+•	Go to the Number tab
+•	Select Text
+•	Click OK
+
+NOTE: If you reopen the saved .CSV file in Excel, the formatting is not preserved.  Save the formatting of ID’s for your last step.
+Any additional columns added to the template will be discarded.  If you have any additional information please add it to the Details of Request field on the webform. 
+</H1>
+
+
+	
+</apex:page>

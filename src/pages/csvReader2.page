@@ -1,0 +1,37 @@
+<apex:page controller="TestWebFormControllerSX">
+</apex:page>
+<!-- <apex:page controller="01pq00000006jCh">
+    <apex:form > 
+    <apex:outputLink value="{!strDocUrl}" id="theLink" styleclass="slabutton">
+    <span class="delete">Download template</span>
+ </apex:outputLink>
+
+<apex:pageBlock >
+            <apex:panelGrid columns="2" >
+                  &nbsp; Workitem Type  <apex:inputText value="{!workItem}" />
+            </apex:panelGrid>
+</apex:pageBlock>
+
+ <apex:pageBlock >
+            <apex:pageBlockButtons location="bottom">
+                
+                    <apex:commandButton value="Read csv" action="{!readcsvFile}"  />
+                
+            </apex:pageBlockButtons>> 
+            <apex:panelGrid columns="2" >
+                  <apex:inputFile value="{!csvFileBody}"  filename="{!csvAsString}" />
+                 
+            </apex:panelGrid>
+ </apex:pageBlock>
+
+ <apex:pageBlock id="pb" >
+      <apex:datatable value="{!error}" var="err">
+          <apex:column > 
+            <apex:outputText value="{!err}"/>
+          </apex:column> 
+      </apex:datatable>
+  </apex:pageBlock>
+
+  
+   </apex:form>
+</apex:page> -->

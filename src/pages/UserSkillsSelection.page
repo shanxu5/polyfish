@@ -1,0 +1,300 @@
+<apex:page standardController="Work_Item_Assignment__c" extensions="UserSkillSelectionExtension">
+ 
+      <apex:stylesheet value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css"/>
+        <apex:stylesheet value="{!URLFOR($Resource.DataTables, 'DataTables/media/css/jquery.dataTables.css')}" />
+    
+    <style>
+        div#content {
+            display: none;
+        }
+        div#loading {
+            top: 200 px;
+            margin: auto;
+            position: absolute;
+            z-index: 1000;
+            width: 160px;
+            height: 24px;
+            background: url(loadingimage.gif) no-repeat;
+            cursor: wait;
+        }
+                      
+.sorting {
+    background: #f2f3f3
+        url('{! URLFOR($Resource.DataTables, 'DataTables/media/images/sort_both.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+
+.sorting_asc {
+    background: #f2f3f3
+        url('{! URLFOR($Resource.DataTables, 'DataTables/media/images/sort_asc.png ') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+
+.sorting_desc {
+    background: #f2f3f3
+        url('{! URLFOR($Resource.DataTables, 'DataTables/media/images/sort_desc.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+
+.sorting_asc_disabled {
+    background: #f2f3f3
+        url('{! URLFOR($Resource.DataTables, 'DataTables/media/images/sort_asc_disabled.png') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+
+.sorting_desc_disabled {
+    background: #f2f3f3
+        url('{! URLFOR($Resource.DataTables, 'DataTables/media/images/sort_desc_disabled.png ') }') no-repeat center right !important;
+    padding-right: 20px !important;
+}
+
+table.dataTable th {
+    background-color: #1797C0 !important;
+    color: #FFFFFF !important;
+    font-size: 1.4em;
+    padding-bottom: 4px;
+    padding-top: 5px;
+    text-align: left;
+}
+
+
+table.dataTable tr.odd {
+    background-color: white;
+}
+
+table.dataTable tr.even {
+    background-color: white;
+}
+
+table.dataTable tr.odd td.sorting_1 {
+    background-color: white;
+}
+
+table.dataTable tr.odd td.sorting_2 {
+    background-color: white;
+}
+
+table.dataTable tr.odd td.sorting_3 {
+    background-color: white;
+}
+
+table.dataTable tr.even td.sorting_1 {
+    background-color: white;
+}
+
+table.dataTable tr.even td.sorting_2 {
+    background-color: white;
+}
+
+table.dataTable tr.even td.sorting_3 {
+    background-color: white;
+}
+
+.dataTables_length,.dataTables_filter,.dataTables_info,.dataTables_paginate
+    {
+    padding: 3px;
+}
+div.DTTT_container {
+    position: relative;
+    float: initial;
+    margin-bottom: 1em;
+}
+
+.dataTables_filter {
+    float: left;
+    text-align: left;
+}
+
+.dataTables_length {
+float: right;
+}
+    </style>
+    <script>
+            function preloader(){
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            }//preloader
+            window.onload = preloader;
+    </script>
+
+    <apex:stylesheet value="{!URLFOR($Resource.UserSkillsCSS)}"/>
+    <div id="loading">
+    
+    <img src="/img/loading.gif" alt="Loading graphic" />
+    
+    </div>
+    <div id="Content">
+        <apex:form >
+            <apex:pageMessage severity="Info" strength="1" rendered="true"><b>Please save your Selection before applying subsequent Filters. Clicking on Filter will undo the previously made selections/deselections.</b></apex:pageMessage>
+             
+            <apex:pageblock mode="maindetail">
+                
+                <apex:outputPanel id="witPanel">
+                     Record Type &nbsp;
+                    <apex:selectList value="{!selectedRctype}" size="1"  >
+                        <apex:selectOptions value="{!recordTypesSelection}" />
+                    </apex:selectList> &nbsp;
+                    Grouping Class &nbsp;
+                    <apex:selectList value="{!selectedGrpClass}" size="1" >
+                        <apex:selectOptions value="{!grpClassSelection}" />
+                    </apex:selectList> &nbsp; 
+                    Work Item Type &nbsp;
+                    <apex:inputText value="{!selectedwit}"/>
+                   
+                    Filter By: &nbsp;
+                    <apex:selectList value="{!selectedFilter}" size="1">
+                        <apex:selectOption itemValue="" itemLabel=""/>
+                        <apex:selectOption itemValue="DA CCA" itemLabel="DA CCA"/>
+                        <apex:selectOption itemValue="Interval" itemLabel="Interval"/>
+                    </apex:selectList> 
+                    <br/>
+                    <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     SA Type &nbsp;
+                    <apex:inputText value="{!satypeEntered}"/> &nbsp;
+                    <apex:commandButton value="Filter" reRender="available-elements" action="{!populatePageHelperList}" status="loading" oncomplete="initializeArray();findPredefinedSkills();createTable();"/>
+                </apex:outputPanel>
+                <hr/>
+                <p></p>    
+                <apex:outputPanel layout="block" id="available-elements" styleClass="available-elements-container">
+                    <apex:pageBlockTable value="{!pageHelperList}" var="ph" styleClass="dataTable" rendered="{!(pageHelperList.size != 0)}">
+                        <apex:column styleClass="checkboxColumnClass" >
+                            <apex:inputCheckbox onclick="PullOrPushCheckBoxClass('{!$Component.checks}');" id="checks" styleClass="{!ph.usr.id}" value="{!ph.selected}"/>
+                        </apex:column>
+                        <apex:repeat var="f" value="{!$ObjectType.User_Skill_Rule__c.FieldSets.User_Skill_Selection}">
+                            <apex:column headerValue="{!f.label}">
+                                <apex:outputField value="{!ph.usr[f]}" />
+                            </apex:column>
+                        </apex:repeat>
+                    </apex:pageBlockTable>
+                    <apex:outputText value="There are no available capabilities for this area." rendered="{!(pageHelperList.size == 0)}"></apex:outputText>
+                </apex:outputPanel>
+            </apex:pageblock>
+            <p></p>
+
+            
+            <apex:commandButton value="Save User Skills" styleClass="save-button" onclick="save()" /> 
+            <apex:commandButton value="Return" styleClass="save-button" action="{!cancel}" />
+            
+            <apex:actionFunction name="saveAf" action="{!save}" reRender="dummy" >
+                <apex:param name="FilterInsertRecordsStr" id="FilterInsertRecordsStr" value="" />
+                <apex:param name="DeletedPredefinedSkillsStr" id="DeletedPredefinedSkillsStr" value="" />
+            </apex:actionFunction>
+            
+        </apex:form>  
+    </div> 
+    
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js" />
+    <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.DataTables, 'DataTables/media/js/jquery.dataTables.js')}"></script>
+
+    <script>
+        var predefinedSkills = [];
+        var allSelectedSkills = [];
+        var selectedPredefinedSkills = [];
+        var DeletedPredefinedSkills = [];
+        var j$ = jQuery.noConflict();
+        j$(document).ready(function () {
+            initializeArray()
+            findPredefinedSkills();
+            createTable();
+        });
+          
+        function initializeArray(){
+            console.log('Start/Filter');
+            predefinedSkills.splice(0,predefinedSkills.length);
+            allSelectedSkills.splice(0,allSelectedSkills.length);
+            selectedPredefinedSkills.splice(0,selectedPredefinedSkills.length);
+            DeletedPredefinedSkills.splice(0,DeletedPredefinedSkills.length);
+            console.log(predefinedSkills);
+            console.log(allSelectedSkills);
+            console.log(selectedPredefinedSkills);
+            console.log(DeletedPredefinedSkills);
+        }
+        
+        function findPredefinedSkills(){
+            console.log('Entered===>');
+            j$('.checkboxColumnClass input[type=checkbox]').each(function(i, obj) {
+                var chekcboxId = j$(this).attr('id');
+                if(document.getElementById(chekcboxId).checked == true){
+                    predefinedSkills.push(j$(this).attr('class'));  
+                    allSelectedSkills.push(j$(this).attr('class')); 
+                    selectedPredefinedSkills.push(j$(this).attr('class'));      
+                }
+            });
+            console.log(predefinedSkills);
+            console.log(allSelectedSkills);
+            console.log(selectedPredefinedSkills);
+        }
+        
+        function PullOrPushCheckBoxClass(checkBoxId){
+            if(document.getElementById(checkBoxId).checked ==true){
+                console.log('if part');
+                console.log(checkBoxId);
+                console.log(document.getElementById(checkBoxId).className);
+                allSelectedSkills.push(document.getElementById(checkBoxId).className);
+                var predefinedSkillsIndex = predefinedSkills.indexOf(document.getElementById(checkBoxId).className);
+                if (predefinedSkillsIndex > -1) {
+                    selectedPredefinedSkills.push(document.getElementById(checkBoxId).className);
+                }
+            }else{
+                console.log('else part');
+                console.log(checkBoxId);
+                console.log(document.getElementById(checkBoxId).className);
+                var allSelectedSkillsIndex = allSelectedSkills.indexOf(document.getElementById(checkBoxId).className);
+                if (allSelectedSkillsIndex > -1) {
+                    allSelectedSkills.splice(allSelectedSkillsIndex, 1);
+                }
+                
+                var selectedPredefinedSkillsIndex = selectedPredefinedSkills.indexOf(document.getElementById(checkBoxId).className);
+                if (selectedPredefinedSkillsIndex > -1) {
+                    selectedPredefinedSkills.splice(selectedPredefinedSkillsIndex, 1);
+                }
+            }
+            console.log('===>predefinedSkills '+predefinedSkills + predefinedSkills.length);
+            console.log('===>allSelectedSkills '+allSelectedSkills + allSelectedSkills.length);
+            console.log('===>selectedPredefinedSkills '+selectedPredefinedSkills + selectedPredefinedSkills.length);
+        }
+        
+        function save(){
+            var predefinedSkillsStr = predefinedSkills.toString();
+            var allSelectedSkillsStr = allSelectedSkills.toString();
+            var selectedPredefinedSkillsStr = selectedPredefinedSkills.toString();
+            // 1,2 -- > 123
+            for(i=0;i<predefinedSkills.length;i++){
+                if(selectedPredefinedSkills.indexOf(predefinedSkills[i]) == -1){
+                    DeletedPredefinedSkills.push(predefinedSkills[i]);
+                }
+            }
+            var filterInsertRecords = [];
+            for(i=0; i<allSelectedSkills.length; i++){
+                if(selectedPredefinedSkills.indexOf(allSelectedSkills[i]) == -1){
+                    filterInsertRecords.push(allSelectedSkills[i]);
+                }
+            }
+            console.log('===>filterInsertRecords'+filterInsertRecords.length);
+            console.log('===>DeletedPredefinedSkills'+DeletedPredefinedSkills.length);
+            FilterInsertRecordsStr = filterInsertRecords.toString();
+            DeletedPredefinedSkillsStr = DeletedPredefinedSkills.toString();
+            console.log('===>FilterInsertRecordsStr '+FilterInsertRecordsStr );
+            console.log('===>DeletedPredefinedSkillsStr '+DeletedPredefinedSkillsStr );
+               
+            saveAf(FilterInsertRecordsStr,DeletedPredefinedSkillsStr);
+            
+        }
+
+        function createTable()
+        {
+            oTable=initTable();
+        }
+
+        function initTable(){
+            return j$('table.dataTable').dataTable( 
+            {
+                "sDom": 'TlCfrtip',
+                "sPaginationType": "full_numbers"
+            });
+        }
+
+    </script>
+      
+</apex:page>

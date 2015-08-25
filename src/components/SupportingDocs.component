@@ -1,0 +1,47 @@
+<apex:component controller="SupportingDocsController">
+<apex:pageBlock title="Supporting document" >
+    <apex:form > 
+    Attachments: <br/>                
+                    
+    <HTML>
+    <BODY>
+        <table style="width:110%">
+            <tr>
+                <td>1. Attachment Name:</td>
+                <td><input type ="text"/></td> 
+                <td><input type='file' id='RequestAttachment' onchange='converttoBase64();' /></td>
+            </tr>
+            <tr>
+                <td>2. Attachment Name:</td>
+                <td><input type ="text"/></td> 
+                <td><input type='file' id='RequestAttachment' onchange='converttoBase64();' /></td>
+            </tr>
+            <tr>
+                <td>3. Attachment Name:</td>
+                <td><input type ="text"/></td> 
+                <td><input type='file' id='RequestAttachment' onchange='converttoBase64();' /></td>
+            </tr>
+            <tr>
+                <td>4. Attachment Name:</td>
+                <td><input type ="text"/></td> 
+                <td><input type='file' id='RequestAttachment' onchange='converttoBase64();' /></td>
+            </tr>
+            <tr>
+                <td>5. Attachment Name:</td>
+                <td><input type ="text"/></td> 
+                <td><input type='file' id='RequestAttachment' onchange='converttoBase64();' /></td>
+            </tr> 
+        </table> 
+
+    </BODY>
+    </HTML>                        
+ 
+    
+    <apex:outputPanel rendered="{!ShowAttachmentField}" >
+    Request Name: &nbsp; <apex:inputText onchange="{!AttachName}"/> <br/> <br/>
+    </apex:outputPanel>
+
+    </apex:form>
+    </apex:pageBlock>
+
+</apex:component>

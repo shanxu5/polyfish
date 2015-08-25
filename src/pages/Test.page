@@ -1,0 +1,7 @@
+<apex:page controller="WebformRequestController">
+    <apex:form >
+    	<c:TestComponent />
+    	<c:WebformDetailsBlock rendered="true" webformFSType="Hetch Hetchy" submissionType="Single"></c:WebformDetailsBlock>
+        <apex:commandButton action="{!insertChild}" value="save"/>
+    </apex:form>
+</apex:page>

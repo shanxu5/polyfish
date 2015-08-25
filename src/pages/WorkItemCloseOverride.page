@@ -1,0 +1,95 @@
+<apex:page standardController="Case" extensions="WorkItemCloseExtension" showHeader="false" sidebar="false" >
+    <apex:includescript value="/soap/ajax/30.0/connection.js">  
+    </apex:includescript>  
+      
+    <script>
+    //alert('Close Work Item...');
+    var rfr = document.referrer;
+    rfr = rfr.replace('&', '%26'); // Update by J1EU 2015-01-21 replace & with %26    
+    //alert(rfr);
+    
+    // Added below by j1eu 2014-11-05
+    // query Work Item Record based on Id on Parameter
+    var myquery = "SELECT Id, Status, ParentId, Sub_Status__c, OwnerId, Net_Variance_Approval_Status__c, Approved_Reviewed__c FROM Case WHERE Id = '{!$CurrentPage.parameters.Id}'";
+    sforce.connection.sessionId = "{!$Api.Session_ID}"; 
+    var queryResult = sforce.connection.query(myquery);
+    var queryRecords = queryResult.getArray("records");
+    var RecId = queryRecords[0].Id;
+    var RecStatus = queryRecords[0].Status;
+    var RecOwnerId = queryRecords[0].OwnerId;
+    
+    // Auto-populate the postpone credit date and show the Close WI page.
+    function autoPopulatePostponeCreditDate() {
+        //alert('In autopopulate...');
+        var autoPostponeDate = formatUrlDate('{!TODAY()+60}');
+        var forwardCloseURL = '/'+ RecId +'/s?retURL=%2F'+ RecId +'&{!postponeCreditDateFieldId}='+ autoPostponeDate + '&nooverride=1';
+        top.location.replace(forwardCloseURL);
+    }
+    
+    // Format the date for url/visualforce page
+    // Input is a date string in the following format, "Fri Jul 31 00:00:00 GMT 2015"
+    function formatUrlDate(date_str) {
+    	var date_array = date_str.split(' ');
+        var month = getMonth(date_array[1]);
+        var day = date_array[2];
+        var year = date_array[5];
+        var url_date = month +'%2F'+ day +'%2F'+ year;
+        return url_date;
+    }
+    
+    // Input is a month string and outputs a string of the numerical equivalent of that month.
+    function getMonth(month_str) {
+        var month = '0';
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var num_months = months.length;
+        for (var month_i=0; month_i < num_months; month_i++) {
+        	if (month_str == months[month_i]) {
+            	month = (month_i + 1).toString();
+                break;
+            }
+        }
+        return month;	
+    }
+        
+    // if Current User is a CSR
+    if ('{!$Profile.Name}' == 'CSR'){
+        ////alert('Current user is a CSR');
+        // if Current User is the owner of the Work Item
+    	if (RecOwnerId == '{!$User.Id}' ){
+            ////alert('Current User owns the Work Item');
+            // Query to get Work Item(s) that belong to the current user and have status of 'Being Worked On'
+            var workItemsBeingWorkedOnQuery = "SELECT Id FROM Case WHERE OwnerId = '{!$User.Id}' and Status = 'Being Worked On'";
+            //Session  
+            sforce.connection.sessionId = "{!$Api.Session_ID}"; 
+            var result = sforce.connection.query(workItemsBeingWorkedOnQuery);
+            var workItemsBeingWorkedOn = result.getArray("records");
+            
+            if (RecStatus != 'Being Worked On'){
+                alert('Work Item must be in "Being Worked On" status before it can be closed.');
+                top.location.replace(rfr);
+            }
+            // CSR has at least one Work Item in BWO status
+            else if (workItemsBeingWorkedOn && workItemsBeingWorkedOn.length > 1 && workItemsBeingWorkedOn[0].Id != ''){
+                alert('You have 2 or more Work Items in "Being Worked On" status. Only one Work Item at a time can be worked on and closed.');
+                top.location.replace(rfr);
+            }
+            // CSR has only one Work Item in BWO status
+            else {
+                // Auto-populate the postpone credit date and show the Close WI page.
+                autoPopulatePostponeCreditDate();
+            }
+        }
+        else {
+            // Current user is not the owner of the Work Item
+            alert ('This Work Item can only be closed by the owner.'); 
+            top.location.replace(rfr);
+        }
+    }
+    else {
+        ////alert('Current user is not a CSR');
+        // Auto-populate the postpone credit date and show the Close WI page.
+        autoPopulatePostponeCreditDate();
+    }
+  
+    </script>  
+</apex:page>

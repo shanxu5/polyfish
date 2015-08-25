@@ -1,0 +1,64 @@
+<apex:component controller="reCAPTCHA" >
+ 
+<script>
+    var onloadCallback = function() {
+    	grecaptcha.render('dynamic_recaptcha_1', {
+        	'sitekey' : "{!publicKey}",
+          	'theme' : 'dark'
+        });
+  	};
+
+</script>
+
+    <!--
+    function showRecaptcha(element) {
+        grecaptcha.render(element, {
+              'sitekey' : "{!publicKey}"
+            });
+    }	
+-->
+	<!--  display the challenge form in this output panel -->
+	<apex:outputPanel id="captcha" rendered="{!ISNULL(challenge)}"> 
+		<apex:form >
+			<apex:inputhidden value="{!challenge}" id="challenge" />
+			<apex:inputhidden value="{!response}" id="response" />
+			<script type="text/javascript">
+			function captureResponse(ele) { 
+				document.getElementById('{!$Component.challenge}').value = 
+					document.getElementById('recaptcha_challenge_field').value;
+				
+				document.getElementById('{!$Component.response}').value = 
+					document.getElementById('recaptcha_response_field').value;
+			}
+			</script>
+
+			<div id="dynamic_recaptcha_1"></div>
+			<br />
+ 
+<!--   Hey, your input form fields go in this area 
+-->
+
+			<apex:commandButton value="Submit"
+				onclick="javascript:captureResponse(this);"  
+				action="{!verify}" />
+
+		</apex:form>
+
+		<!--  display the image using the reCAPTCHA AJAX API -->
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback" async="defer">
+		</script>
+      
+        
+	</apex:outputPanel>
+	
+    <!--  display the response from the verify API in this panel -->
+	<apex:outputPanel rendered="{!NOT(ISNULL(challenge))}">
+		<h3>Correct Human Response&nbsp;: {!correctResponse}</h3>
+		<!--  debugging 
+		<br />Challenge&nbsp;: {!challenge}<br />Response&nbsp;: {!response}
+		-->
+		<apex:form >
+            <apex:commandButton value="Try Again?" action="{!reset}" />
+		</apex:form>
+	</apex:outputPanel>
+</apex:component>

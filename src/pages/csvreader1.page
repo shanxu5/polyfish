@@ -1,0 +1,24 @@
+<apex:page Controller="csvFileReaderController1" >
+    <apex:form >  <!-- csv reader demo -->
+    <apex:outputLink value="{!strDocUrl}" id="theLink" styleclass="slabutton">
+    <span class="delete">Download template</span>
+ </apex:outputLink>
+
+<apex:pageBlock >
+            <apex:panelGrid columns="2" >
+                  &nbsp; Workitem Type  <apex:inputText value="{!workItem}" />
+            </apex:panelGrid>
+</apex:pageBlock>
+
+ <apex:pageBlock >
+            <apex:panelGrid columns="2" >
+                  <apex:inputFile value="{!csvFileBody}"  filename="{!csvAsString}"/>
+                  <apex:commandButton value="Read csv" action="{!readcsvFile}"/>
+            </apex:panelGrid>
+        </apex:pageBlock>
+        
+        
+                            
+          
+   </apex:form>
+</apex:page>

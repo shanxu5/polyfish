@@ -1,0 +1,19 @@
+{
+    "username": "shanx@slalom.com.mtcwpms01", 
+    "project_name": "PGE", 
+    "org_url": "", 
+    "namespace": "", 
+    "metadata_container": "1dcq00000002LhjAAE", 
+    "environment": "sandbox", 
+    "workspace": "C:\\Users\\shanx\\workspace", 
+    "id": "QGTAAOVD8GKUXUJF5M0306JMJIZYX0IQ", 
+    "subscription": [
+        "ApexClass", 
+        "ApexComponent", 
+        "ApexPage", 
+        "ApexTrigger", 
+        "StaticResource", 
+        "CustomObject", 
+        "Profile"
+    ]
+}

@@ -1,0 +1,22 @@
+<apex:page showHeader="false" sidebar="false" controller="BOEWebFormController">
+    <apex:form >
+    <p>&nbsp;</p>
+    <div style="font-size:25px; text-align:center">  
+       <apex:pageBlock >
+       <h1>
+         Thank you for your submission. 
+         <!-- <div rendered="{!webFormMaster.Notification_of_Completion_Required__c}"> -->
+         <apex:outputPanel rendered="{!webFormMaster.Notification_of_Completion_Required__c}">
+            <p>An email will be sent upon completion of the requests.</p>
+         </apex:outputPanel>
+         <p>Reference Number: {!batchNumber}</p>
+       </h1>
+       <br/>
+       <div align="center">
+         <apex:commandLink value="Return to Previous Page" action="{!returnToPrevious}" style="font-size:20px"/>
+        </div>
+       </apex:pageBlock>
+    </div>
+    <br/>
+    </apex:form>
+</apex:page>

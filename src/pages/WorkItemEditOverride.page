@@ -1,0 +1,203 @@
+<apex:page standardController="Case" showHeader="false" sidebar="false" >
+    <apex:includescript value="/soap/ajax/30.0/connection.js"/>  
+    <apex:includescript value="{!$Resource.EditOverride}"/>  
+    <apex:includescript value="{!$Resource.OnClickUtility}"/>  
+    <script>
+    	var sessionId = "{!$Api.Session_ID}";
+    	var userId = '{!$User.Id}';
+    	var rfr = document.referrer;
+    
+        // alert(rfr);
+        var exec = false;
+            
+        // Added below by j1eu 2014-11-05
+        // query Work Item Record based on Id on Parameter
+        var myquery = "SELECT Id, Status, ParentId, Sub_Status__c, OwnerId, Net_Variance_Approval_Status__c, Approved_Reviewed__c FROM Case WHERE Id = '{!$CurrentPage.parameters.Id}'";
+        sforce.connection.sessionId = sessionId; 
+        var queryResult = sforce.connection.query(myquery);
+        var queryRecords = queryResult.getArray("records");
+    
+        var RecId = queryRecords[0].Id;
+        var RecStatus = queryRecords[0].Status;
+        var RecParentId = null;
+        RecParentId = queryRecords[0].ParentId;
+        var RecSubStatus = null;
+        RecSubStatus = queryRecords[0].Sub_Status__c;
+        var RecOwnerId = queryRecords[0].OwnerId;
+        var RecNetVarAppStat = null;
+        RecNetVarAppStat = queryRecords[0].Net_Variance_Approval_Status__c;
+        var RecAppReviewed = null;
+        RecAppReviewed = queryRecords[0].Approved_Reviewed__c;
+        
+    	
+    	var retURL = '/'+RecId+'?nooverride=1';
+        if(rfr == null || !rfr){
+            // alert('!');
+            rfr = '/'+RecId+'?nooverride=1';
+        }    
+        rfr = rfr.replace('&', '%26'); // Update by J1EU 2015-01-21 replace & with %26
+        // Updated by YXS7 on 2015-01-20 - add retURL parameter
+        var forwardViewURL = '/'+RecId+'?nooverride=1';
+        var forwardEditURL = '/'+RecId+'/e?retURL=' + rfr + '&nooverride=1';
+
+        if(rfr && rfr.indexOf(retURL) == -1){
+            exec = true;
+        }
+        
+        // Restrict this functionality to CSR Profile only - WFMRONE-126
+        // Added below by yxs7 on 2014-10-27
+        if ('{!$Profile.Name}' != 'CSR'){
+        	redirect(RecId,rfr);
+        }
+        else {
+            //If Status is "Completed" or "Canceled", WI should be displayed to CSR, but Status should not change
+            // Modified below by yxs7 on 2014-10-30
+            // If the current WI has Status 'Being Worked On', just forward to it
+            // Added below by yxs7 on 2014-10-29
+            //var lstatus = RecStatus;
+            
+            switch(RecStatus) {
+              case 'Completed':
+              case 'Canceled':
+              
+                             redirect(RecId,rfr);
+                             break;
+                             
+              case 'Being Worked On':
+                  
+                            if (RecOwnerId == userId){
+                              redirect(RecId,rfr);
+                            }
+                            else {
+                               alertIsBeingWorkedOnByOtherCSR();
+                               redirect(RecId,rfr);
+                            }
+                            break;
+              
+              case 'Assigned':
+              case 'Unassigned':
+              case 'Unavailable':
+                		
+                         var caseId = RecId;
+                         
+                         var isBeingWorkedOn = false;
+                         if (RecParentId == null || RecParentId == '') {
+                           //this WI is a Parent WI
+                           isBeingWorkedOn = isBeingWorkedOnForOtherParent(caseId,sessionId,userId);
+                         }
+                         else {
+                           //this WI is a Child WI
+                           isBeingWorkedOn = isBeingWorkedOnForOtherParent(RecParentId,sessionId,userId);
+                         }
+             
+                         if (isBeingWorkedOn == true) {    
+                           alertIsBeingWorkedOn();
+                           redirect(RecId,rfr);
+                         }
+                         else { 
+                             //alert('exec: ' + exec);
+                             //if(exec == true){
+                                 updateWorkItemToBeingWorkedOn(sessionId, RecId, userId);
+                             //}
+                            //Returning to Case  
+                            redirect(RecId,rfr);
+                          }
+                          break;
+              
+              case 'Pending':
+                
+                  //WI record Id  
+                  var CID = RecId;  
+                            
+                  //WI Status
+                  var STATUS = RecStatus;
+                            
+                  //WI Sub-Status
+                  var SUB_STATUS = RecSubStatus;
+                            
+                  //WI Owner
+                  var CASEOWNER = RecOwnerId;
+                            
+                  //user ID
+                  var USERID = userId;
+                                          
+                  if (CASEOWNER == USERID){
+                      
+                    // Taking the user to the WI detail page if the owner is the same as the user clicking on the link and status is not equal to "Assigned or Unassigned"
+                    if(SUB_STATUS == 'Approval' || SUB_STATUS == 'Escalation'){
+                        //Approved/Reviewed Status of WI - calculated by Formula Field - is True if "Net Variance Approval Status" is Non-Blank or Approved/Reviewed is Checked
+                        var APPROVEDREVIEWEDSTATUS = false;
+                        if ((RecNetVarAppStat && RecNetVarAppStat != null && RecNetVarAppStat != '') || (RecAppReviewed && RecAppReviewed != null && RecAppReviewed == 'true')){
+                          APPROVEDREVIEWEDSTATUS = true;
+                        }
+                        
+                        if(APPROVEDREVIEWEDSTATUS == true && exec == 'true'){
+                           var caseId = RecId;
+                           
+                           var isBeingWorkedOn = false;
+                           if (RecParentId == null || RecParentId == '') {
+                             //this WI is a Parent WI
+                             isBeingWorkedOn = isBeingWorkedOnForOtherParent(caseId,sessionId,userId);
+                           }
+                           else {
+                             //this WI is a Child WI
+                             isBeingWorkedOn = isBeingWorkedOnForOtherParent(RecParentId,sessionId,userId);
+                           }
+               
+                           if (isBeingWorkedOn == true) {    
+                             alertIsBeingWorkedOn();
+                             redirect(RecId,rfr);
+                           }
+                           else { 
+                            	updateWorkItemToBeingWorkedOn(sessionId, caseId, null);
+                                //Returning to Case  
+                                redirect(RecId,rfr);
+                           }
+                        }
+                        else {   
+                            //Returning to Case  
+                            redirect(RecId,rfr);
+                        }
+                   }
+				   else{
+						if(exec == true){
+						  
+							 var caseId = RecId;
+							 
+							 var isBeingWorkedOn = false;
+							 if (RecParentId == null || RecParentId == '') {
+							   //this WI is a Parent WI
+							   isBeingWorkedOn = isBeingWorkedOnForOtherParent(caseId,sessionId,userId);
+							 }
+							 else {
+							   //this WI is a Child WI
+							   isBeingWorkedOn = isBeingWorkedOnForOtherParent(RecParentId,sessionId,userId);
+							 }
+				 
+							 if (isBeingWorkedOn == true) {    
+							   alertIsBeingWorkedOn();
+							   redirect(RecId,rfr);
+							 }
+							 else { 
+								 
+								 updateWorkItemToBeingWorkedOn(sessionId, caseId, null);
+							  
+								//Returning to Case  
+								redirect(RecId,rfr);
+							 }
+						  }
+						else {
+						   //Returning to Case  
+						   redirect(RecId,rfr);
+						}
+				   }
+                 }
+                 else{
+                     alertIsBeingWorkedOnByOtherCSR();
+                     top.location.replace(rfr);
+                 }
+                break;
+          }
+        }
+    </script>
+</apex:page>

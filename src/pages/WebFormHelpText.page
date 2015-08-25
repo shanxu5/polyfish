@@ -1,0 +1,139 @@
+<apex:page showHeader="False" sidebar="False" controller="WebformHelp">
+
+
+<style>
+        body {
+            background-color: #025A80;
+        }
+        
+        .maincontainer {    
+               width: 80%;
+               margin: auto auto;
+               background-color: white;
+               padding-top: 10px;
+               padding-bottom:1px;
+               padding-left:10px;
+               padding-right: 10px;
+               
+        }
+        
+        .maincontainer .mainform {
+            margin-top: 1%;
+            margin-bottom: 1%;    
+        }
+        
+        img.PGE_Logo{
+            width: 55px;
+            height: 55px;
+            margin-top:10px;
+            margin-bottom: 10px;
+            border-radius: 1px;
+            margin-left:10%;
+        } 
+        
+        /* All header divs for page blocks */
+        body .apexp .bPageBlock.apexDefaultPageBlock .pbHeader {
+            padding: 1.5% 0%;    
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        /* Color for the top of the page blocks */
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {  
+            border-top: 4px solid #025A80;
+        }
+        
+        /* Error text div */
+        .apexp .bPageBlock.apexDefaultPageBlock .pbBody {
+            color: #000;
+            font-weight: bold;    
+            text-align: center;
+        }
+        
+        .form-footer {
+              width: 81.2%;
+              margin: auto;
+              margin-top: 1px;
+              background-color: #ffc766;
+              height: 15px;
+              border-radius: 0px 0px 4px 4px;
+
+        }
+        table.list tr.dataRow td {
+              border-left-width: 0;
+              text-align: left;
+        }
+    </style>
+    
+    <apex:image alt="PG&E Logo" styleClass="PGE_Logo" id="PGE_Logo" value="{!$Resource.PGE_Logo}" />
+        <div id="maincontainer" class="maincontainer">   
+	        <apex:form styleclass="mainform">
+            	<apex:pageBlock >
+	                <div id="maintext" style="text-align:left;">
+		                <h2><span style="font-size:16px;">Template Requirements</span></h2>
+                        <ul>
+                            <li>Format is .CSV file</li>
+	                        <li>Max of 200 rows</li>
+                        </ul>
+
+                        <p>Click on the template to download and save it to your local computer.&nbsp; When the file is first downloaded it will be in the correct format, .CSV, if it is saved as anything other than .CSV, here are instructions to re-save it as .CSV.</p>
+                        <p><strong>How to save file as .CSV?</strong></p>
+                        <ul>
+                        	<li>Open the Import file and select:&nbsp;<strong>File | Save As</strong></li>
+							<li>Change Save As Type to&nbsp;<strong>.CSV (Comma Delimited)</strong></li>
+							<li>Click&nbsp;<strong>OK</strong></li>
+							<li>Click&nbsp;<strong>Yes</strong></li>
+							<li>This will&nbsp;<strong>convert&nbsp;</strong>these file types to .<strong>CSV</strong></li>
+						</ul>
+
+						<p>In order to <strong>automatically</strong> add leading zeros to any field, the field type must be text.&nbsp; Here are instructions on how to change a field type to text.&nbsp;</p>
+
+						<ul>
+							<li>Select the <strong>column</strong> you would like to <strong>format</strong></li>
+							<li><strong>Right</strong> click</li>
+							<li>Click on <strong>Format Cells&hellip;</strong></li>
+							<li>Go to the <strong>Number</strong> tab</li>
+							<li>Select <strong>Custom</strong></li>
+							<li>In the Type box enter <strong>&ldquo;0000000000&rdquo;</strong></li>
+							<li>Click <strong>OK</strong></li>
+						</ul>
+						<p>In order to <strong>manually</strong> add leading zeros to any field, the field type must be text.&nbsp; Here are instructions on how to change a field type to text.&nbsp;</p>
+						<ul>
+							<li>Select the <strong>column</strong> you would like to <strong>format</strong></li>
+							<li><strong>Right</strong> click</li>
+							<li>Click on <strong>Format Cells&hellip;</strong></li>
+							<li>Go to the <strong>Number</strong> tab</li>
+							<li>Select <strong>Text</strong></li>
+							<li>Click <strong>OK</strong></li>
+						</ul>
+
+						<p><span style="color:#FF0000;"><strong>NOTE:</strong></span> If you reopen the saved .CSV file in Excel, the formatting is not preserved.&nbsp; Save the formatting of ID&rsquo;s for your last step.</p>
+
+						<p>Any additional columns added to the template will be discarded.&nbsp; If you have any additional information please add it to the Details of Request field on the webform.&nbsp;</p>
+
+						<p>&nbsp;</p>
+					</div>
+				</apex:pageBlock>
+				<apex:pageBlock title=" Required fields for {!workItemType}" >
+					<apex:pageBlockTable title="Field Settings" value="{!webFormFieldSetting}" columns="6" var="w">
+						<apex:column value="{!w.Account_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['Account_ID__c']}" headerValue="Account ID"/>
+			            <apex:column value="{!w.Service_Agreement_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['Service_Agreement_ID__c']}" headerValue="Service Agreement ID" />
+			            <apex:column value="{!w.Service_Point_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['Service_Point_ID__c']}" headerValue="Service Point ID"/>
+			            <apex:column value="{!w.Field_Order_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['Field_Order_ID__c']}" headerValue="Field Order ID"/>
+			            <apex:column value="{!w.Premise_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['Premise_ID__c']}" headerValue="Premise ID"/>
+			            <apex:column value="{!w.Person_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['Person_ID__c']}" headerValue="Person ID"/>
+			            <apex:column value="{!w.Meter_Number_Meter_Badge_Number__c}" rendered="{!fieldSettingUt.requiredFieldMap['Meter_Number_Meter_Badge_Number__c']}" headerValue="Meter Number Meter Badge Number"/>
+			            <apex:column value="{!w.Retro_Start_Date__c}" rendered="{!fieldSettingUt.requiredFieldMap['Retro_Start_Date__c']}" headerValue="Retro Start Date" />
+			            <apex:column value="{!w.Retro_End_Date__c}" rendered="{!fieldSettingUt.requiredFieldMap['Retro_End_Date__c']}" headerValue="Retro End Date"/>
+			            <apex:column value="{!w.Badge_Set_Date__c}" rendered="{!fieldSettingUt.requiredFieldMap['Badge_Set_Date__c']}" headerValue="Badge Set Date"/>
+			            <apex:column value="{!w.Correct_Constant__c}" rendered="{!fieldSettingUt.requiredFieldMap['Correct_Constant__c']}" headerValue="Correct Constant" />
+			            <apex:column value="{!w.Correction_Date__c}" rendered="{!fieldSettingUt.requiredFieldMap['Correction_Date__c']}" headerValue="Correction Date"/>
+			            <apex:column value="{!w.Incorrect_Constant__c}" rendered="{!fieldSettingUt.requiredFieldMap['Incorrect_Constant__c']}" headerValue="Incorrect Constant"/>
+			            <apex:column value="{!w.RAP_Work_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['RAP_Work_ID__c']}" headerValue="RAP Work ID"/>
+			            <apex:column value="{!w.Details_of_Request__c}" rendered="{!fieldSettingUt.requiredFieldMap['Details_of_Request__c']}" headerValue="Details of Request"/>
+					</apex:pageBlockTable>
+	            </apex:pageBlock>
+    		</apex:form>
+       </div>
+       <div id="form-footer" class="form-footer"></div>
+       <div style="width:80%; margin:auto; margin-top:2px;"> <apex:outputText value="© {!YEAR(TODAY())} Pacific Gas and Electric Company. All rights reserved"  /> </div>
+   </apex:page>

@@ -1,0 +1,23 @@
+<apex:component > <!-- controller="WebFormController">
+    
+    <apex:attribute name="int" description="this is to show or hide the checkboxes" type="Boolean" assignTo="{!URLSource}"/>
+    <apex:pageBlock title="Requestor information"> 
+        <apex:form > 
+
+            
+            Name:  &nbsp; &nbsp; <apex:inputText onchange="{!Name}" />&nbsp; &nbsp;&nbsp; &nbsp;
+            
+            <apex:inputCheckbox title="Critical" rendered="{!URLSource}"/> &nbsp; &nbsp;
+            <apex:outputText value="Critical" rendered="{!URLSource}"/> 
+            <br/> <br/>
+            
+            E-mail: &nbsp; &nbsp; <apex:inputText onchange="{!Email}"/>&nbsp; &nbsp;&nbsp; &nbsp;
+            <apex:inputCheckbox title="Notification" rendered="{!URLSource}"/> &nbsp; &nbsp;
+            <apex:outputText value="Notification" rendered="{!URLSource}" />           
+     
+            <br /> <br />
+ 
+         </apex:form>
+    </apex:pageBlock>
+-->
+</apex:component>

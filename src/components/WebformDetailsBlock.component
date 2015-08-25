@@ -1,0 +1,52 @@
+<apex:component controller="WebformRequestController" allowDML="true">
+    <apex:attribute name="webformFSType" description="This is the type of webform field settings object."
+                    type="String" required="true" assignTo="{!webformWIName}"/>
+    <apex:attribute name="submissionType" description="This is the submission type for the webform object."
+                    type="String" required="true" assignTo="{!submType}"/>
+    
+
+    <apex:outputText rendered="!IF(webformFSType != null,true,false)" value="This is the webform type...{!webformFSType}"></apex:outputText>
+    <br />
+    <apex:outputText rendered="!IF(submissionType != null,true,false)" value="This is the submission type...{!submissionType}"></apex:outputText>
+    
+    
+        <apex:pageBlock title="Billing Ops Work Item Webform">
+<!--            <apex:pageBlockSection rendered="{!IF(webPageIsInternal,true,false)}" title="Internal Block 3" >-->
+            <apex:pageBlockSection rendered="true" title="Internal Block 3" >
+                <br />
+                
+                <!--                    <apex:inputfield value="{!wf.Requestor_s_Email__c}"     rendered="{!IF(showFieldMap['Requestor_s_Email__c'],true,false)}"   required="{!IF(requiredFieldMap['Requestor_s_Email__c'],true,false)}" />-->
+                <!--                    <apex:inputfield value="{!wf.Requestor_s_Name__c}"      rendered="{!IF(showFieldMap['Requestor_s_Name__c'],true,false)}"    required="{!IF(requiredFieldMap['Requestor_s_Name__c'],true,false)}" />-->
+                <!--    <apex:inputfield value="{!wf.Submission_Type__c}"       rendered="{!IF(showFieldMap['Submission_Type__c'],true,false)}"     required="{!IF(requiredFieldMap['Submission_Type__c'],true,false)}" /> -->
+                <!--                    <apex:inputfield value="{!wf.Work_Item_Type__c}"        rendered="{!IF(showFieldMap['Work_Item_Type__c'],true,false)}"      required="{!IF(requiredFieldMap['Work_Item_Type__c'],true,false)}" />-->
+                
+                <apex:inputfield value="{!webformDetailRequest.Account_ID__c}" rendered="{!IF(showFieldMap['Account_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Account_ID__c'],true,false)}" />
+                <apex:inputfield value="{!webformDetailRequest.Service_Agreement_ID__c}" rendered="{!IF(showFieldMap['Service_Agreement_ID__c'],true,false)}"  required="{!IF(requiredFieldMap['Service_Agreement_ID__c'],true,false)}" />
+                <apex:inputfield value="{!webformDetailRequest.Service_Point_ID__c}" rendered="{!IF(showFieldMap['Service_Point_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Service_Point_ID__c'],true,false)}" />
+                <apex:inputfield value="{!webformDetailRequest.Field_Order_ID__c}" rendered="{!IF(showFieldMap['Field_Order_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Field_Order_ID__c'],true,false)}" />
+                <apex:inputfield value="{!webformDetailRequest.Premise_ID__c}" rendered="{!IF(showFieldMap['Premise_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Premise_ID__c'],true,false)}" />
+                <apex:inputfield value="{!webformDetailRequest.Person_ID__c}" rendered="{!IF(showFieldMap['Person_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Person_ID__c'],true,false)}" />
+                <apex:inputfield value="{!webformDetailRequest.Meter_Number_Meter_Badge_Number__c}" rendered="{!IF(showFieldMap['Meter_Number_Meter_Badge_Number__c'],true,false)}" required="{!IF(requiredFieldMap['Meter_Number_Meter_Badge_Number__c'],true,false)}" />
+                <apex:inputCheckbox value="{!webformDetailRequest.Notification_of_Completion_Required__c}" rendered="{!IF(showFieldMap['Notification_of_Completion_Required__c'],true,false)}"  required="{!IF(requiredFieldMap['Notification_of_Completion_Required__c'],true,false)}" />
+                
+                <!--    <apex:inputfield value="{!webformDetailRequest.Critical_Request__c}"      rendered="{!IF(showFieldMap['Critical_Request__c'],true,false)}"    required="{!IF(requiredFieldMap['Critical_Request__c'],true,false)}" /> -->
+                
+                <apex:inputfield value="{!webformDetailRequest.Retro_Start_Date__c}" rendered="{!IF(showFieldMap['Retro_Start_Date__c'],true,false)}" required="{!IF(requiredFieldMap['Retro_Start_Date__c'],true,false)}" />
+                <apex:inputfield value="{!webformDetailRequest.Retro_End_Date__c}" rendered="{!IF(showFieldMap['Retro_End_Date__c'],true,false)}" required="{!IF(requiredFieldMap['Retro_End_Date__c'],true,false)}" />
+                <apex:inputfield value="{!webformDetailRequest.Badge_Set_Date__c}" rendered="{!IF(showFieldMap['Badge_Set_Date__c'],true,false)}" required="{!IF(requiredFieldMap['Badge_Set_Date__c'],true,false)}" />
+                <apex:inputfield value="{!webformDetailRequest.Correct_Constant__c}" rendered="{!IF(showFieldMap['Correct_Constant__c'],true,false)}" required="{!IF(requiredFieldMap['Correct_Constant__c'],true,false)}" />
+                <apex:inputfield value="{!webformDetailRequest.Correction_Date__c}" rendered="{!IF(showFieldMap['Correction_Date__c'],true,false)}" required="{!IF(requiredFieldMap['Correction_Date__c'],true,false)}" />
+                <apex:inputfield value="{!webformDetailRequest.Incorrect_Constant__c}" rendered="{!IF(showFieldMap['Incorrect_Constant__c'],true,false)}" required="{!IF(requiredFieldMap['Incorrect_Constant__c'],true,false)}" />
+                <apex:inputfield value="{!webformDetailRequest.RAP_Work_ID__c}" rendered="{!IF(showFieldMap['RAP_Work_ID__c'],true,false)}" required="{!IF(requiredFieldMap['RAP_Work_ID__c'],true,false)}" />
+                <apex:inputField value="{!webformDetailRequest.Details_of_Request__c}" rendered="{!IF(showFieldMap['Details_of_Request__c'],true,false)}" required="{!IF(requiredFieldMap['Details_of_Request__c'],true,false)}" />
+				              
+            </apex:pageBlockSection>            
+            
+            <apex:pageBlockSection rendered="{!IF(webPageIsExternal,true,false)}" title="External Block 3" >
+                <apex:inputTextarea value="{!webformDetailRequest.Details_of_Request__c}" rendered="{!IF(showFieldMap['Details_of_Request__c'],true,false)}"         required="{!IF(requiredFieldMap['Details_of_Request__c'],true,false)}" />
+            </apex:pageBlockSection>
+            
+            
+        </apex:pageBlock>
+    
+</apex:component>

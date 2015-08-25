@@ -1,0 +1,154 @@
+<apex:page ></apex:page>
+
+<!--  <apex:page showHeader="false" sidebar="false" controller="TestWebFormControllerSX" cache="true" expires="3600" >
+
+
+
+   <apex:stylesheet value="{!$Resource.WebFormCss}" />
+
+<div id="maincontainer" class="maincontainer">
+    <apex:form styleclass="mainform">
+        <apex:image styleClass="PGE_Logo" id="PGE_Logo" value="{!$Resource.PGE_Logo}" />
+        
+        <apex:pageBlock title="Billing Exceptions Request"  >
+        <apex:facet name="header">
+          <apex:image url="{!$Resource.BillingExceptionsRequestHeader}"/>
+         </apex:facet>
+
+        
+        <apex:pageBlock title="Request Type">
+
+            <apex:actionRegion >
+            <apex:pageBlockSection title="Select Work Item and Submission Type" columns="2">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Work Item Type"/>
+                    <apex:selectList value="{!selectedRequestType}" size="1">   
+                        <apex:selectOptions value="{!requestTypeSelection}" />
+                        <apex:actionSupport event="onchange" reRender="blocks2-5" action="{!reloadRequestType}"/>
+                    </apex:selectList> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Submission Type"/>
+                    <apex:selectList value="{!selectedSubmissionType}" size="1" >   
+                        <apex:selectOptions value="{!submissionTypeSelection}" />
+                        <apex:actionSupport event="onchange" reRender="blocks2-5"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            </apex:actionRegion>
+
+        </apex:pageBlock>
+
+        <apex:outputPanel id="blocks2-5">
+            
+                <apex:pageBlock id="sectionTwo" title="Requestor information" rendered="{!IF(AND(NOT(ISBLANK(selectedRequestType)), NOT(ISBLANK(selectedSubmissionType))) ,true,false)}">
+                    <apex:pageBlockSection > 
+                        <apex:inputField id="requestorName" label="Requestor's Name" value="{!webFormMaster.Requestor_s_Name__c}" rendered="{!showFieldMap['Requestor_s_Name__c']}" required="{!requiredFieldMap['Requestor_s_Name__c']}"/> 
+                        <apex:outputPanel id="criticalCheckbox" rendered="{!IF($Site.Prefix == '/internal', true, false)}">
+                            <apex:inputCheckbox label="Critical" title="Critical" value="{!webFormMaster.Critical_Request__c}"/>
+                        </apex:outputPanel>
+                        
+                      
+                        <apex:inputField id="requestorEmail" value="{!webFormMaster.Requestor_s_Email__c}" rendered="{!showFieldMap['Requestor_s_Email__c']}" required="{!requiredFieldMap['Requestor_s_Email__c']}"/>
+                        <apex:inputCheckbox title="Notification" value="{!webFormMaster.Notification_of_Completion_Required__c}"/> 
+                        <apex:panelGroup >
+                            <apex:outputText value="Password"/>
+                            <apex:inputText value="{!password}" rendered="{!IF(selectedRequestType='Miscellaneous Webform',true,false)}"/>
+                        </apex:panelGroup>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>              
+            
+            <apex:pageBlock id="sectionThree" title="Billing Ops Work Item Webform" rendered="{!AND(NOT(ISBLANK(selectedRequestType)), NOT(ISBLANK(selectedSubmissionType)))}">
+                <apex:pageBlockSection rendered="{!submissionTypeSelected}" id="singleWF">
+                <apex:inputfield value="{!webformDetailRequest.Account_ID__c}" rendered="{!IF(showFieldMap['Account_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Account_ID__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Service_Agreement_ID__c}" rendered="{!IF(showFieldMap['Service_Agreement_ID__c'],true,false)}"  required="{!IF(requiredFieldMap['Service_Agreement_ID__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Service_Point_ID__c}" rendered="{!IF(showFieldMap['Service_Point_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Service_Point_ID__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Field_Order_ID__c}" rendered="{!IF(showFieldMap['Field_Order_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Field_Order_ID__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Premise_ID__c}" rendered="{!IF(showFieldMap['Premise_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Premise_ID__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Person_ID__c}" rendered="{!IF(showFieldMap['Person_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Person_ID__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Meter_Number_Meter_Badge_Number__c}" rendered="{!IF(showFieldMap['Meter_Number_Meter_Badge_Number__c'],true,false)}" required="{!IF(requiredFieldMap['Meter_Number_Meter_Badge_Number__c'],true,false)}" />
+                    <apex:inputCheckbox value="{!webformDetailRequest.Notification_of_Completion_Required__c}" rendered="{!IF(showFieldMap['Notification_of_Completion_Required__c'],true,false)}"  required="{!IF(requiredFieldMap['Notification_of_Completion_Required__c'],true,false)}" />   
+                    <apex:inputfield value="{!webformDetailRequest.Retro_Start_Date__c}" rendered="{!IF(showFieldMap['Retro_Start_Date__c'],true,false)}" required="{!IF(requiredFieldMap['Retro_Start_Date__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Retro_End_Date__c}" rendered="{!IF(showFieldMap['Retro_End_Date__c'],true,false)}" required="{!IF(requiredFieldMap['Retro_End_Date__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Badge_Set_Date__c}" rendered="{!IF(showFieldMap['Badge_Set_Date__c'],true,false)}" required="{!IF(requiredFieldMap['Badge_Set_Date__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Correct_Constant__c}" rendered="{!IF(showFieldMap['Correct_Constant__c'],true,false)}" required="{!IF(requiredFieldMap['Correct_Constant__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Correction_Date__c}" rendered="{!IF(showFieldMap['Correction_Date__c'],true,false)}" required="{!IF(requiredFieldMap['Correction_Date__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Incorrect_Constant__c}" rendered="{!IF(showFieldMap['Incorrect_Constant__c'],true,false)}" required="{!IF(requiredFieldMap['Incorrect_Constant__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.RAP_Work_ID__c}" rendered="{!IF(showFieldMap['RAP_Work_ID__c'],true,false)}" required="{!IF(requiredFieldMap['RAP_Work_ID__c'],true,false)}" />
+                    <apex:inputField value="{!webformDetailRequest.Details_of_Request__c}" rendered="{!IF(showFieldMap['Details_of_Request__c'],true,false)}" required="{!IF(requiredFieldMap['Details_of_Request__c'],true,false)}" />
+
+                    <apex:inputTextarea value="{!infoText}"/>                                            
+                </apex:pageBlockSection>           
+                <apex:pageBlockSection id="multipleWF" rendered="{!IF(selectedSubmissionType='Multiple', true, false)}" >
+                    <apex:inputField value="{!webformDetailRequest.Details_of_Request__c}" rendered="{!IF(showFieldMap['Details_of_Request__c'],true,false)}" required="{!IF(requiredFieldMap['Details_of_Request__c'],true,false)}" />
+
+                    <apex:inputTextarea value="{!infoText}"/>
+                </apex:pageBlockSection>  
+            </apex:pageBlock>
+            
+            <apex:pageBlock id="sectionFour" title="CSV Attachment" rendered="{!AND(NOT(ISBLANK(selectedRequestType)), IF(selectedSubmissionType='Multiple',true,false))}">
+
+                <apex:pageBlockSection columns="2">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLink value="{!URLFOR($Action.Document.Download, template.Id)}" target="_blank">Download CSV Template</apex:outputLink>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:inputFile value="{!csvFileReadCtr.csvFileBody}"  filename="{!csvFileReadCtr.csvAsString}" />
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                          
+
+            </apex:pageBlock> 
+           
+                <apex:pageBlock id="sectionFive" title="Supporting document" rendered="{!IF(NOT(ISBLANK(selectedRequestType)) && NOT(ISBLANK(selectedSubmissionType)),true,false)}">
+                    <apex:pageBlockSection >            
+                        
+                    Attachments: <br/>                
+                            
+                    <HTML>
+                    <BODY>
+                    <table style="width:110%">
+                    <tr>
+                        <td>1. Attachment Name:</td>
+                        <td><input type ="text"/></td> 
+                        <td><input type='file' id='RequestAttachment' onchange='converttoBase64();' /></td>
+                    </tr>
+                    <tr>
+                        <td>2. Attachment Name:</td>
+                        <td><input type ="text"/></td> 
+                        <td><input type='file' id='RequestAttachment' onchange='converttoBase64();' /></td>
+                    </tr>
+                    <tr>
+                        <td>3. Attachment Name:</td>
+                        <td><input type ="text"/></td> 
+                        <td><input type='file' id='RequestAttachment' onchange='converttoBase64();' /></td>
+                    </tr>
+                    <tr>
+                        <td>4. Attachment Name:</td>
+                        <td><input type ="text"/></td> 
+                        <td><input type='file' id='RequestAttachment' onchange='converttoBase64();' /></td>
+                    </tr>
+                    <tr>
+                        <td>5. Attachment Name:</td>
+                        <td><input type ="text"/></td> 
+                        <td><input type='file' id='RequestAttachment' onchange='converttoBase64();' /></td>
+                    </tr> 
+                    </table> 
+
+                    </BODY>
+                    </HTML>                        
+         
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            
+        </apex:outputPanel>
+    <div align="center">
+        <apex:commandButton value="Submit"/>
+    </div>
+    </apex:pageBlock>
+    <div id="form-footer" class="form-footer"></div>
+    <apex:outputText value="© 2013 Pacific Gas and Electric Company. All rights reserved" />
+    </apex:form>
+    </div> 
+</apex:page> 
+-->

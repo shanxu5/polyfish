@@ -1,0 +1,7 @@
+<apex:page controller="TestRequestForm">
+    <apex:pageBlock >
+        <apex:form >
+            <c:ChildRequestForm />
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

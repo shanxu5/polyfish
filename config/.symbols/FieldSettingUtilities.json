@@ -1,0 +1,442 @@
+{
+    "properties": [
+        {
+            "modifiers": [
+                "public"
+            ], 
+            "name": "workItemType", 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 16, 
+                "line": 2
+            }, 
+            "type": "String"
+        }, 
+        {
+            "modifiers": [
+                "public"
+            ], 
+            "name": "webFormFS", 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 35, 
+                "line": 3
+            }, 
+            "type": "Webform_Field_Settings__c"
+        }, 
+        {
+            "modifiers": [
+                "public"
+            ], 
+            "name": "showFieldMap", 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 32, 
+                "line": 14
+            }, 
+            "type": "Map"
+        }, 
+        {
+            "modifiers": [
+                "public"
+            ], 
+            "name": "requiredFieldMap", 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 32, 
+                "line": 50
+            }, 
+            "type": "Map"
+        }, 
+        {
+            "modifiers": [
+                "public"
+            ], 
+            "name": "webformWIFields", 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 25, 
+                "line": 105
+            }, 
+            "type": "LIST"
+        }, 
+        {
+            "modifiers": [
+                "static", 
+                "public"
+            ], 
+            "name": "test", 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 23, 
+                "line": 4
+            }, 
+            "type": "String"
+        }
+    ], 
+    "externalReferences": [], 
+    "innerClasses": [], 
+    "interfaces": [], 
+    "constructors": [
+        {
+            "modifiers": [
+                "public"
+            ], 
+            "name": "FieldSettingUtilities", 
+            "parameters": [
+                {
+                    "type": "String", 
+                    "name": "wiType"
+                }
+            ], 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 9, 
+                "line": 10
+            }, 
+            "type": null
+        }
+    ], 
+    "namespace": null, 
+    "name": "FieldSettingUtilities", 
+    "tableDeclaration": {
+        "type": "FieldSettingUtilities", 
+        "modifiers": [
+            "public", 
+            "with sharing"
+        ], 
+        "references": [], 
+        "location": {
+            "column": 27, 
+            "line": 1
+        }, 
+        "name": "FieldSettingUtilities"
+    }, 
+    "key": "01pq00000006pc7AAA", 
+    "variables": [
+        {
+            "type": "String", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 38, 
+                "line": 10
+            }, 
+            "name": "wiType"
+        }, 
+        {
+            "type": "Map", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 33, 
+                "line": 16
+            }, 
+            "name": "m"
+        }, 
+        {
+            "type": "String", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 20, 
+                "line": 17
+            }, 
+            "name": "fieldValue"
+        }, 
+        {
+            "type": "DisplayType", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 32, 
+                "line": 18
+            }, 
+            "name": "fieldDataType"
+        }, 
+        {
+            "type": "Set", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 37, 
+                "line": 19
+            }, 
+            "name": "nonStringDataTypes"
+        }, 
+        {
+            "type": "String", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 25, 
+                "line": 21
+            }, 
+            "name": "f"
+        }, 
+        {
+            "type": "Map", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 33, 
+                "line": 52
+            }, 
+            "name": "m"
+        }, 
+        {
+            "type": "String", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 20, 
+                "line": 53
+            }, 
+            "name": "fieldValue"
+        }, 
+        {
+            "type": "DisplayType", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 32, 
+                "line": 54
+            }, 
+            "name": "fieldDataType"
+        }, 
+        {
+            "type": "Set", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 37, 
+                "line": 55
+            }, 
+            "name": "nonStringDataTypes"
+        }, 
+        {
+            "type": "String", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 25, 
+                "line": 57
+            }, 
+            "name": "f"
+        }, 
+        {
+            "type": "String", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 24, 
+                "line": 91
+            }, 
+            "name": "wfQueryFields"
+        }, 
+        {
+            "type": "String", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 24, 
+                "line": 92
+            }, 
+            "name": "webformSelectStmt"
+        }, 
+        {
+            "type": "Webform_Field_Settings__c", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 54, 
+                "line": 101
+            }, 
+            "name": "fs"
+        }, 
+        {
+            "type": "LIST", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 26, 
+                "line": 107
+            }, 
+            "name": "fields"
+        }, 
+        {
+            "type": "LIST", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 39, 
+                "line": 109
+            }, 
+            "name": "wfwif"
+        }, 
+        {
+            "type": "SObjectField", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 38, 
+                "line": 110
+            }, 
+            "name": "w"
+        }, 
+        {
+            "type": "String", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 16, 
+                "line": 122
+            }, 
+            "name": "queryFields"
+        }, 
+        {
+            "type": "String", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 55, 
+                "line": 129
+            }, 
+            "name": "customObjectType"
+        }, 
+        {
+            "type": "String", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 80, 
+                "line": 129
+            }, 
+            "name": "apiFieldName"
+        }, 
+        {
+            "type": "Map", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 41, 
+                "line": 130
+            }, 
+            "name": "schemaMap"
+        }, 
+        {
+            "type": "SObjectType", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 28, 
+                "line": 131
+            }, 
+            "name": "leadSchema"
+        }, 
+        {
+            "type": "Map", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 42, 
+                "line": 132
+            }, 
+            "name": "fieldMap"
+        }, 
+        {
+            "type": "DisplayType", 
+            "modifiers": [], 
+            "references": [], 
+            "location": {
+                "column": 28, 
+                "line": 134
+            }, 
+            "name": "fieldDataType"
+        }
+    ], 
+    "id": "01pq00000006pc7AAA", 
+    "methods": [
+        {
+            "modifiers": [
+                "public"
+            ], 
+            "name": "getWebformFS", 
+            "parameters": [], 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 38, 
+                "line": 88
+            }, 
+            "returnType": "Webform_Field_Settings__c", 
+            "type": null
+        }, 
+        {
+            "modifiers": [
+                "public"
+            ], 
+            "name": "setWebformFS", 
+            "parameters": [
+                {
+                    "type": "Webform_Field_Settings__c", 
+                    "name": "fs"
+                }
+            ], 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 15, 
+                "line": 101
+            }, 
+            "returnType": "void", 
+            "type": null
+        }, 
+        {
+            "modifiers": [
+                "public"
+            ], 
+            "name": "getWebformQueryFields", 
+            "parameters": [], 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 19, 
+                "line": 120
+            }, 
+            "returnType": "String", 
+            "type": null
+        }, 
+        {
+            "modifiers": [
+                "public"
+            ], 
+            "name": "getFieldDataType", 
+            "parameters": [
+                {
+                    "type": "String", 
+                    "name": "customObjectType"
+                }, 
+                {
+                    "type": "String", 
+                    "name": "apiFieldName"
+                }
+            ], 
+            "visibility": "PUBLIC", 
+            "references": [], 
+            "location": {
+                "column": 31, 
+                "line": 129
+            }, 
+            "returnType": "DisplayType", 
+            "type": null
+        }
+    ]
+}

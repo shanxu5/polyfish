@@ -1,0 +1,1073 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Page",
+				"PageReference	[Standard Apex Class]"
+			],
+			[
+				"ren",
+				"reRender	(Object)"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"csv",
+				"csvBody"
+			],
+			[
+				"work",
+				"workItemType"
+			],
+			[
+				"hea",
+				"headerValue	(String)"
+			],
+			[
+				"h",
+				"headerValue	(String)"
+			],
+			[
+				"pageb",
+				"apex:pageBlock"
+			],
+			[
+				"Webform_f",
+				"Webform_Field_Settings__c	[Sobject Name]"
+			],
+			[
+				"Field",
+				"FieldSettingUtilities	[Custom Apex Class]"
+			],
+			[
+				"Web",
+				"Webform_Field_Settings__c	[Sobject Name]"
+			],
+			[
+				"coma",
+				"apex:commandLink"
+			],
+			[
+				"pageBlockSe",
+				"apex:pageBlockSectionItem"
+			],
+			[
+				"child",
+				"childRequest"
+			],
+			[
+				"csvFile",
+				"csvFileBody"
+			],
+			[
+				"command",
+				"apex:commandLink"
+			],
+			[
+				"intern",
+				"internalPage"
+			],
+			[
+				"page",
+				"PageReference"
+			],
+			[
+				"webf",
+				"webFormFS"
+			],
+			[
+				"fieldEro",
+				"fieldErrorCount"
+			],
+			[
+				"add",
+				"addMessage"
+			],
+			[
+				"c",
+				"controller	(String)"
+			],
+			[
+				"external",
+				"isExternal"
+			],
+			[
+				"webFormMast",
+				"webFormMaster"
+			],
+			[
+				"mat",
+				"PUBLIC matches(String regex, String input) 	Boolean"
+			],
+			[
+				"ema",
+				"emailString"
+			],
+			[
+				"err",
+				"errorList"
+			],
+			[
+				"is",
+				"isExternal"
+			],
+			[
+				"er",
+				"errorList"
+			],
+			[
+				"mes",
+				"apex:messages"
+			],
+			[
+				"errr",
+				"ERROR"
+			],
+			[
+				"me",
+				"message"
+			],
+			[
+				"get",
+				"PUBLIC getMessage() 	String"
+			],
+			[
+				"pas",
+				"passwordError"
+			],
+			[
+				"valida",
+				"validatePassword"
+			],
+			[
+				"E",
+				"ERROR"
+			],
+			[
+				"actions",
+				"apex:actionSupport"
+			],
+			[
+				"we",
+				"webFormFS"
+			],
+			[
+				"pass",
+				"password"
+			],
+			[
+				"rdirect",
+				"PUBLIC setRedirect(Boolean redirect) 	System.PageReference"
+			],
+			[
+				"chatter",
+				"chatterFileMap"
+			],
+			[
+				"erroracc",
+				"errorAccReq"
+			],
+			[
+				"template",
+				"templateId"
+			],
+			[
+				"templ",
+				"templateId"
+			],
+			[
+				"selected",
+				"selectedRequestType"
+			],
+			[
+				"pageblo",
+				"apex:pageBlock"
+			],
+			[
+				"outpu",
+				"apex:outputPanel"
+			],
+			[
+				"f",
+				"fileName	(String)"
+			],
+			[
+				"ser",
+				"Severity"
+			],
+			[
+				"insert",
+				"insertAttachment"
+			],
+			[
+				"ge",
+				"PUBLIC getMessage() 	String"
+			],
+			[
+				"csf",
+				"csvFileName"
+			],
+			[
+				"cha",
+				"chatterFileMap"
+			],
+			[
+				"put",
+				"PUBLIC put(ANY key, ANY value) 	String"
+			],
+			[
+				"con",
+				"constructFileIds"
+			],
+			[
+				"support",
+				"supportingDocument"
+			],
+			[
+				"co",
+				"columns	(Integer)"
+			],
+			[
+				"sele",
+				"selectedSubmissionType"
+			],
+			[
+				"csvF",
+				"csvFileReadCtr"
+			],
+			[
+				"webFormMaster",
+				"webFromMasterId"
+			],
+			[
+				"web",
+				"webformDetailRequest"
+			],
+			[
+				"Date",
+				"Datetime	[Standard Apex Class]"
+			],
+			[
+				"inputf",
+				"apex:inputFile"
+			],
+			[
+				"atta",
+				"attachments"
+			],
+			[
+				"si",
+				"PUBLIC size() 	Integer"
+			],
+			[
+				"v",
+				"value	(Object)"
+			],
+			[
+				"a",
+				"attachments"
+			],
+			[
+				"to",
+				"toString"
+			],
+			[
+				"list",
+				"listToInsert"
+			],
+			[
+				"panel",
+				"apex:panelGroup"
+			],
+			[
+				"info",
+				"Info__c"
+			],
+			[
+				"p",
+				"apex:panelGroup"
+			],
+			[
+				"t",
+				"title	(String)"
+			],
+			[
+				"temp",
+				"templateId"
+			],
+			[
+				"pageBl",
+				"apex:pageBlockSectionItem"
+			],
+			[
+				"ac",
+				"action	(ApexPages.Action)"
+			],
+			[
+				"output",
+				"apex:outputPanel"
+			],
+			[
+				"s",
+				"style	(String)"
+			],
+			[
+				"d",
+				"disabled	(Boolean)"
+			],
+			[
+				"pagt",
+				"apex:pageBlockSection"
+			],
+			[
+				"re",
+				"required	(Boolean)"
+			],
+			[
+				"Webf",
+				"Webform_Master_Request__c"
+			],
+			[
+				"pageblock",
+				"apex:pageBlockSectionItem"
+			],
+			[
+				"not",
+				"PUBLIC isNotBlank(String str) 	Boolean"
+			],
+			[
+				"Selec",
+				"SelectOption	[Standard Apex Class]"
+			],
+			[
+				"submi",
+				"submissionTypeSelected"
+			],
+			[
+				"se",
+				"selectedRequestType"
+			],
+			[
+				"WebForm",
+				"Webform_Master_Request__c"
+			],
+			[
+				"border-co",
+				"border-color"
+			],
+			[
+				"A",
+				"Actual_Days__c"
+			],
+			[
+				"ag",
+				"Agreed_Days__c"
+			],
+			[
+				"Actual",
+				"Actual_Days__c"
+			],
+			[
+				"Agree",
+				"Agreed_VCD__c"
+			],
+			[
+				"Agreed",
+				"Agreed_Days__c"
+			],
+			[
+				"update",
+				"updateList"
+			],
+			[
+				"Nego",
+				"Negotiation_Account__c"
+			],
+			[
+				"negotiation",
+				"negotiationToUpdate"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/classes/FieldSettingUtilities.cls",
+			"settings":
+			{
+				"buffer_size": 5242,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/classes/TestWebFormControllerSX.cls",
+			"settings":
+			{
+				"buffer_size": 29490,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/pages/WebFormSX.page",
+			"settings":
+			{
+				"buffer_size": 18107,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/pages/WebForm_Request.page",
+			"settings":
+			{
+				"buffer_size": 18221,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/staticresources/WebFormCss.resource",
+			"settings":
+			{
+				"buffer_size": 2203,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/classes/WebFormController.cls",
+			"settings":
+			{
+				"buffer_size": 25560,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/pages/WebFormHelpText.page",
+			"settings":
+			{
+				"buffer_size": 3792,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/classes/WebformHelp.cls",
+			"settings":
+			{
+				"buffer_size": 606,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 127.0,
+		"last_filter": "Package Control: In",
+		"selected_items":
+		[
+			[
+				"Package Control: In",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/shanx/workspace/PGE",
+		"/C/Users/shanx/workspace/PGE/src",
+		"/C/Users/shanx/workspace/PGE/src/staticresources"
+	],
+	"file_history":
+	[
+		"/C/Users/shanx/workspace/PGE/src/classes/CsvFileReader.cls",
+		"/C/Users/shanx/workspace/PGE/src/classes/csvFileReaderController2.cls",
+		"/C/Users/shanx/workspace/PGE/src/classes/csvFileReaderController.cls",
+		"/C/Users/shanx/workspace/PGE/src/pages/WebForm_Request.page",
+		"/C/Users/shanx/workspace/PGE/src/pages/WebFormSX_ST_VF.page",
+		"/C/Users/shanx/workspace/PGE/src/classes/ChatterFileUtilities.cls",
+		"/C/Users/shanx/workspace/PGE/src/pages/requestConfirmation.page",
+		"/C/Users/shanx/Documents/Projects/PG&E/Tasks for web form",
+		"/C/Users/shanx/workspace/PGE/src/classes/TestWebFormControllerSX.cls",
+		"/C/Users/shanx/workspace/PGE/src/pages/testUploadAttachment.page",
+		"/C/Users/shanx/workspace/PGE/src/classes/UploadAttachment.cls",
+		"/C/Users/shanx/workspace/PGE/src/pages/csvReader2.page",
+		"/C/Users/shanx/workspace/PGE/src/pages/csvreader.page",
+		"/C/Users/shanx/workspace/PGE/src/pages/Test.page",
+		"/C/Users/shanx/workspace/PGE/src/classes/WebFormController.cls",
+		"/C/Users/shanx/workspace/PGE/src/classes/WebformRequestController.cls",
+		"/C/Users/shanx/Documents/practice_workspace/angularPractice/css/style.css",
+		"/C/Users/shanx/Documents/Projects/Mckesson/Apex Script/update_master_negotiation_full_sandbox_apex_script.cls",
+		"/C/Users/shanx/Documents/Projects/Mckesson/sfdc_account_delete_script",
+		"/C/Users/shanx/Documents/Mckesson/Notes_5_12",
+		"/C/Users/shanx/AppData/Roaming/Sublime Text 3/Packages/User/mavensmate.sublime-settings",
+		"/C/Users/shanx/AppData/Roaming/Sublime Text 3/Packages/User/Package Control.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"actionregion",
+			"mainform",
+			"dispalyPopup",
+			"displayPopup",
+			"!fieldSettingUt.webFormFS.",
+			"!fs",
+			"fs",
+			"!fs.",
+			"!w.",
+			"w",
+			"csvFileReadController2",
+			"csvFileReadCtr",
+			"csvFileReaderController2",
+			"showFieldMap",
+			"requiredFieldMap",
+			"showFieldMap",
+			"fieldSettingUt.",
+			"webformDetailRequest",
+			"(fieldSettingUt",
+			"!IF",
+			"inputField",
+			"isExternal",
+			"internal",
+			"requiredFieldMap",
+			"showFieldMap",
+			"webFormFS",
+			"fieldSettingUt",
+			"webFormFS",
+			"fieldSettingUt.requiredFieldMap",
+			"fieldSettingUt.showFieldMap",
+			"showFieldMap",
+			"requiredFieldMap",
+			"showFieldMap",
+			"rowNumber",
+			"200",
+			"webFormFS",
+			"Info__c",
+			"thisObj",
+			"Info__c",
+			"value",
+			"Webform_Master_request__c",
+			"Info__c",
+			"chatterFiles",
+			"Blob",
+			"isTrue",
+			"Details_of_Request__c",
+			"toString()",
+			"insertAttachment",
+			"Requestor's info",
+			"Requestoer's info",
+			"csv",
+			"break",
+			"row",
+			"rowNumber",
+			"is not 10 digit",
+			"errorPremiseLen",
+			"errorAccReq",
+			"renderInfoField",
+			"supportingDocument",
+			"csvFileBody",
+			"WorkItem",
+			"csvBody",
+			"csvFileBody",
+			"WebFormList",
+			"parseCSV",
+			"parsedCSV",
+			"webform_master",
+			"Webform_Field_Setting__c",
+			";}\n",
+			"record",
+			"csvFileReaderController2",
+			"         \n",
+			"ShowReqFields",
+			"webformFS",
+			"SelectReqType",
+			"SelectReqTypesese",
+			"equiredFieldMap",
+			",true,false",
+			",true,false)",
+			"!IF",
+			"webformWIFields",
+			"webformWIName",
+			"requestTypeSelected",
+			"requestTypeSelection",
+			"selectedSubmissionType",
+			"showFieldMap",
+			"webformWIFields",
+			"webformDetailRequest",
+			"thisObj",
+			"csvTosObject",
+			"ShowAttachmentField",
+			"checkBoxStatus",
+			"SelectReqType",
+			"webformFS",
+			"[\\\\\\t|\\\\\\n|\\\\\\r]",
+			"([^,]*)(,|$)",
+			"([^\\n])$",
+			"[\\\\\\t|\\\\\\n|\\\\\\r]",
+			"([^,]*)(,|$)",
+			"([^\\n])$",
+			"' ",
+			"[\\\\\\t|\\\\\\n|\\\\\\r]",
+			"([^,]*)(,|$)",
+			"([^\\n])$",
+			"' ",
+			"[\\\\\\t|\\\\\\n|\\\\\\r]",
+			"([^,]*)(,|$)",
+			"([^\\nn])$",
+			",'",
+			"([^,]*)(,|$)",
+			"\"$1\"$2",
+			"([^,]*)(,|$)",
+			"[\\\\\\t|\\\\\\n|\\\\\\r]",
+			"duplicate value found: Vendor_ID__c duplicates value on record with id: ",
+			"001j000000ImzPrAAJ",
+			"' ",
+			"[\\\\\\t|\\\\\\n|\\\\\\r]",
+			"([^,]*)(,|$)",
+			"(.)$",
+			"([^\\n])$",
+			" ",
+			"duplicate value found: Vendor_ID__c duplicates value on record with id:",
+			"' ",
+			"[\\\\\\t|\\\\\\n|\\\\\\r]",
+			"/\\r?\\n|\\r/g",
+			"/\\r?\\n|\\r/",
+			"([^,]*)(,|$)",
+			"$"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"displayPopup",
+			"!fs.",
+			"!fieldSettingUt.webFormFS.",
+			"!fs.",
+			"fs",
+			"requiredFieldMap",
+			"showFieldMap",
+			"requiredFieldMap",
+			"!fieldSettingUt.",
+			"w",
+			"",
+			"column",
+			"fieldSettingUt.requiredFieldMap",
+			"fieldSettingUt.showFieldMap",
+			"WebFormController.fieldSettingUt",
+			"requiredFieldMap",
+			"showFieldMap",
+			"fieldSettingUt.showFieldMap",
+			"fieldSettingUt.requiredFieldMap",
+			"fieldSettingUt.showFieldMap",
+			"",
+			"'$1'$2",
+			"\\1,",
+			"",
+			"'$1'$2",
+			"\\1,",
+			"'",
+			" ",
+			"'$1'$2",
+			"\\1,",
+			"'",
+			" ",
+			"'$1'$2",
+			"\\1,",
+			", '",
+			"'$1'$2",
+			"'$1 '$2",
+			"'$1' $2",
+			",",
+			"",
+			"'",
+			" ",
+			"'$1'$2",
+			"' '",
+			"\\1,",
+			",",
+			"",
+			"'",
+			" ",
+			"\" \"",
+			"'$1'$2",
+			",",
+			"\\1",
+			"'$1'$2"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 7,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/classes/FieldSettingUtilities.cls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5242,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								361,
+								361
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MavensMate/sublime/lang/Apex.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 513.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/classes/TestWebFormControllerSX.cls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 29490,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16280,
+								16280
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MavensMate/sublime/lang/Apex.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 7305.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/pages/WebFormSX.page",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18107,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1020,
+								1020
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 741.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/pages/WebForm_Request.page",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18221,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1662,
+								1674
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 311.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/staticresources/WebFormCss.resource",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2203,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/classes/WebFormController.cls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 25560,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4766,
+								4766
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MavensMate/sublime/lang/Apex.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2584.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/pages/WebFormHelpText.page",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3792,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/classes/WebformHelp.cls",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 606,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								178,
+								197
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MavensMate/sublime/lang/Apex.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.MavensMate-OutputPanel":
+	{
+		"height": 251.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "PGE.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 240.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -1,0 +1,182 @@
+<apex:page showHeader="true" sidebar="true" controller="TestWebFormControllerSX" cache="true" expires="3600">
+<!--  recaptcha -->   
+    <script src="https://www.google.com/recaptcha/api.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" >
+    </script>
+<!--  recaptcha -->
+
+    <apex:form >
+        <apex:pageBlock title="Request Form">
+        <apex:messages style="color:red" rendered="{!((submissionTypeSelected == false && csvErrorList.size != 0) || (submissionTypeSelected == true && selectedRequestType == 'Miscellaneous Webform'))}"/>
+        <!-- ============ section One: to be replaced with new code ============== -->
+        <apex:pageBlock title="Request Type">
+<!--        <apex:form styleClass="requestform">-->
+            <apex:actionRegion >
+            <apex:pageBlockSection title="Select Work Item and Submission Type" columns="2">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Work Item Type"/>
+                    <apex:selectList value="{!selectedRequestType}" size="1">   
+                        <apex:selectOptions value="{!requestTypeSelection}" />
+<!--                    <apex:actionSupport event="onchange" reRender="blocks2-5" action="{!reloadRequestType}"/> -->
+    <!--  recaptcha --> <apex:actionSupport event="onchange" reRender="blocks2-5" action="{!reloadRequestType}" oncomplete="renderRecaptchaWidget('{!selectedRequestType}','{!selectedSubmissionType}')"/> <!--  recaptcha -->
+                    </apex:selectList> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Submission Type"/>
+                    <apex:selectList value="{!selectedSubmissionType}" size="1" >   
+                        <apex:selectOptions value="{!submissionTypeSelection}" />
+<!--                    <apex:actionSupport event="onchange" reRender="blocks2-5"/> -->
+    <!--  recaptcha --> <apex:actionSupport event="onchange" reRender="blocks2-5" oncomplete="renderRecaptchaWidget('{!selectedRequestType}','{!selectedSubmissionType}')"/> <!--  recaptcha -->                        
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            </apex:actionRegion>
+<!--        </apex:form>-->
+        </apex:pageBlock>
+
+        <!-- output panel to control rendering blocks 2-5 -->
+        <apex:outputPanel id="blocks2-5">
+            <!-- ================ Block Two: infosection ================ -->
+                <apex:pageBlock id="sectionTwo" title="Requestor Information" rendered="{!IF(AND(NOT(ISBLANK(selectedRequestType)), NOT(ISBLANK(selectedSubmissionType))) ,true,false)}">
+                    <apex:pageBlockSection > 
+                        <apex:inputField id="requestorName" label="Requestor's Name" value="{!webFormMaster.Requestor_s_Name__c}" rendered="{!showFieldMap['Requestor_s_Name__c']}" required="{!requiredFieldMap['Requestor_s_Name__c']}"/> 
+                        <apex:inputCheckbox label="Critical" title="Critical" value="{!webFormMaster.Critical_Request__c}" rendered="{!IF($Site.Prefix == '/internal', true, false)}"/>
+                        
+                        <!-- E-mail: &nbsp; &nbsp; <apex:inputText onchange="{!Email}"/>&nbsp; &nbsp;&nbsp; &nbsp; -->
+                        <apex:inputField id="requestorEmail" value="{!webFormMaster.Requestor_s_Email__c}" rendered="{!showFieldMap['Requestor_s_Email__c']}" required="{!requiredFieldMap['Requestor_s_Email__c']}"/>
+                        <apex:inputCheckbox title="Notification" value="{!webFormMaster.Notification_of_Completion_Required__c}"/> 
+                        <apex:outputPanel rendered="{!IF(selectedRequestType='Miscellaneous Webform',true,false)}" >
+                            <!-- <apex:outputText id="password" value="Password" />
+                            <apex:inputText value="{!password}" required="true"/>  -->
+                            <apex:outputText id="password" value="Password" style="margin-right:13px"/>
+                            <span class="requiredInput" >
+                                <div class="requiredBlock" style="height:20px; top: -3px"></div>
+                                <apex:inputText value="{!password}"/>
+                            </span>
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>              
+            <!-- END ========== Block Two: infosection ================ -->
+            
+            <!-- =========== Block Three: WF Field ================== -->
+            <apex:pageBlock id="sectionThree" title="Billing Ops Work Item Webform" rendered="{!AND(NOT(ISBLANK(selectedRequestType)), NOT(ISBLANK(selectedSubmissionType)))}">
+                <apex:pageBlockSection rendered="{!submissionTypeSelected}" id="singleWF">
+                    <apex:inputfield value="{!webformDetailRequest.Account_ID__c}" rendered="{!IF(showFieldMap['Account_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Account_ID__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Service_Agreement_ID__c}" rendered="{!IF(showFieldMap['Service_Agreement_ID__c'],true,false)}"  required="{!IF(requiredFieldMap['Service_Agreement_ID__c'],true,false)}"/>
+                    <apex:inputfield value="{!webformDetailRequest.Service_Point_ID__c}" rendered="{!IF(showFieldMap['Service_Point_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Service_Point_ID__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Field_Order_ID__c}" rendered="{!IF(showFieldMap['Field_Order_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Field_Order_ID__c'],true,false)}"/>
+                    <apex:inputfield value="{!webformDetailRequest.Premise_ID__c}" rendered="{!IF(showFieldMap['Premise_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Premise_ID__c'],true,false)}"/>
+                    <apex:inputfield value="{!webformDetailRequest.Person_ID__c}" rendered="{!IF(showFieldMap['Person_ID__c'],true,false)}" required="{!IF(requiredFieldMap['Person_ID__c'],true,false)}"/>
+                    <apex:inputfield value="{!webformDetailRequest.Meter_Number_Meter_Badge_Number__c}" rendered="{!IF(showFieldMap['Meter_Number_Meter_Badge_Number__c'],true,false)}" required="{!IF(requiredFieldMap['Meter_Number_Meter_Badge_Number__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Retro_Start_Date__c}" rendered="{!IF(showFieldMap['Retro_Start_Date__c'],true,false)}" required="{!IF(requiredFieldMap['Retro_Start_Date__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Retro_End_Date__c}" rendered="{!IF(showFieldMap['Retro_End_Date__c'],true,false)}" required="{!IF(requiredFieldMap['Retro_End_Date__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Badge_Set_Date__c}" rendered="{!IF(showFieldMap['Badge_Set_Date__c'],true,false)}" required="{!IF(requiredFieldMap['Badge_Set_Date__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Correct_Constant__c}" rendered="{!IF(showFieldMap['Correct_Constant__c'],true,false)}" required="{!IF(requiredFieldMap['Correct_Constant__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Correction_Date__c}" rendered="{!IF(showFieldMap['Correction_Date__c'],true,false)}" required="{!IF(requiredFieldMap['Correction_Date__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Incorrect_Constant__c}" rendered="{!IF(showFieldMap['Incorrect_Constant__c'],true,false)}" required="{!IF(requiredFieldMap['Incorrect_Constant__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.RAP_Work_ID__c}" rendered="{!IF(showFieldMap['RAP_Work_ID__c'],true,false)}" required="{!IF(requiredFieldMap['RAP_Work_ID__c'],true,false)}" />
+                    <apex:inputField value="{!webformDetailRequest.Details_of_Request__c}" rendered="{!IF(showFieldMap['Details_of_Request__c'],true,false)}" required="{!IF(requiredFieldMap['Details_of_Request__c'],true,false)}" />
+                    <apex:inputField value="{!webformFS.Info__c}"/>                                        
+                </apex:pageBlockSection>           
+                <apex:pageBlockSection id="multipleWF" rendered="{!IF(selectedSubmissionType='Multiple', true, false)}" >
+                    <apex:inputField value="{!webformDetailRequest.Details_of_Request__c}" rendered="{!IF(showFieldMap['Details_of_Request__c'],true,false)}" required="{!IF(requiredFieldMap['Details_of_Request__c'],true,false)}" />
+                </apex:pageBlockSection>  
+            </apex:pageBlock>
+            <!-- END =============== Block Three: WF Field ================ -->
+            
+            <!-- =============== Block Four: CSV ===================-->
+            <!-- <apex:pageBlock id="sectionFour" title="CSV Attachment" rendered="{!AND(NOT(ISBLANK(selectedRequestType)), IF(selectedSubmissionType='Multiple',true,false))}"> -->
+            <apex:outputPanel id="sectionFour" style="display : {!IF(AND(NOT(ISBLANK(selectedRequestType)), IF(selectedSubmissionType='Multiple',true,false)), 'block', 'none')}">
+            <apex:pageBlock title="CSV Attachment">
+                <apex:pageBlockSection columns="2">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLink value="{!URLFOR($Action.Document.Download, template.Id)}" target="_blank" rendered="{!NOT(ISNULL(template.Id))}">Download CSV Template</apex:outputLink>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem dataStyle="text-align:right">
+                        <apex:commandLink value="help" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:inputFile value="{!csvBody}" fileName="{!csvFileName}"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>               
+            </apex:pageBlock> 
+            </apex:outputPanel>
+            <!-- END =============== Block Four: CSV ==========================-->
+            
+            <!-- =================== Block Five: Attach ====================== -->
+               <!--  <apex:pageBlock id="sectionFive" title="Supporting document" rendered="{!IF(NOT(ISBLANK(selectedRequestType)) && NOT(ISBLANK(selectedSubmissionType)),true,false)}"> -->
+                <apex:outputPanel id="sectionFive" style="display : {!IF(NOT(ISBLANK(selectedRequestType)) && NOT(ISBLANK(selectedSubmissionType)),'block', 'none')}">             
+                <apex:pageBlock title="Supporting Document(s)" >
+                    <apex:pageBlockSection columns="1">                                  
+                        <apex:repeat value="{!chatterFiles}" var="a">
+                            <apex:inputFile value="{!a.VersionData}" fileName="{!a.Title}" />
+                        </apex:repeat>                        
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                </apex:outputPanel>
+            <!-- END ================= Block Five: Attach ================= -->
+            <div align="center" id="submitButton">
+
+                <!--  recaptcha -->                
+                    <div id="recaptcha-widget" >
+                        <!-- reCAPTCHA widget is rendered here by the renderRecaptchaWidget() javascript function -->
+                    </div>
+                <!--  recaptcha -->                
+<!--recaptcha--><apex:commandButton value="Submit" rendered="{!AND(NOT(ISBLANK(selectedRequestType)), NOT(ISBLANK(selectedSubmissionType)))}" onclick="javascript:captureResponse();" action="{!insertChild}" /> <!--  recaptcha -->
+<!--            <apex:commandButton value="Submit" rendered="{!AND(NOT(ISBLANK(selectedRequestType)), NOT(ISBLANK(selectedSubmissionType)))}" action="{!insertChild}"/> -->
+
+            </div>
+        </apex:outputPanel><!-- output panel to control rendering blocks 2-5 -->
+
+    </apex:pageBlock><!-- Request form page block -->
+
+
+                    <!-- This hidden input field captures the users reCAPTCHA response (via captureResponse() js func)
+                           and assigns it to the controller variable -->
+<!--  recaptcha --> <apex:inputhidden value="{!response}" id="response" /> <!--  recaptcha -->
+<!--  recaptcha -->
+        <!-- These script tags must reside within the form tag for the reCAPTCHA to work correctly -->
+        <script src="https://www.google.com/recaptcha/api.js">
+        </script>
+        <script type="text/javascript">
+            // Controller variables available at page load.
+            var captcha_widget_id = null;
+            var pl_request_type = '{!selectedRequestType}';
+            var pl_submission_type = '{!selectedSubmissionType}';   
+     
+            var renderRecaptchaWidget = function(request_type, submission_type) {
+                //alert(request_type); 
+                //alert(submission_type);  
+                // Render reCAPTCHA widget only if both types have been selected.
+                if((request_type != '') && (submission_type != '')){
+                    captcha_widget_id = grecaptcha.render('recaptcha-widget', {
+                        'sitekey' : "{!publicKey}"
+                    });    
+                }
+            };
+        
+            var captureResponse = function() {
+                // Verify that user solved captcha
+                var response = grecaptcha.getResponse(captcha_widget_id);
+
+                if(response != ''){
+                    // If successfull captcha response received, assign response to hidden input field, 
+                    //  which assigns this value to the controller variable.
+                    jQuery("[id$='response']").val(response);
+                } else {
+                    // else display alert to notify the user
+                    alert('Please solve the reCAPTCHA before submitting the form! :)');
+                }  
+            };
+        
+            // Re-render the widget after the page loads.  This code is for after user clicks submit button and they
+            //  forget to solve the reCAPTCHA and/or there are field validation errors on the page.
+            $( document ).ready(function() {
+                renderRecaptchaWidget(pl_request_type, pl_submission_type);
+            });
+                
+        </script>
+<!--  recaptcha -->            
+    </apex:form>
+</apex:page>

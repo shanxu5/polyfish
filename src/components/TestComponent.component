@@ -1,0 +1,50 @@
+<apex:component controller="TestComponentController">
+    
+        <apex:pageBlock title="Billing Ops Work Item Webform">
+            <apex:pageBlockSection title="Select Work Item and Submission Type" columns="2">
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel id="label_chooseWorkItem" value="Work Item Type: " for="chooseWorkItem"/>
+<!--                    <apex:actionRegion >-->
+                        <apex:selectList value="{!selectedExternalWI}" multiselect="false" size="1">
+                            <apex:actionSupport action="{!updateSelectedExternalWI}" event="onchange" reRender="block3,testPanel" />
+                            <!--<apex:actionSupport event="onchange" action="{!updateSelectedExternalWI}" reRender="testPanel2"/>
+                            <!--<apex:selectOption itemValue="Select..."  itemLabel="Select..."/>-->
+                            <apex:selectOptions value="{!externalWiSelectOptions}"/>
+                        </apex:selectList>  
+<!--                    </apex:actionRegion>-->
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel id="label_chooseSubmissionType" value="Submission Type: " for="chooseSubmissionType"/>
+                    <apex:selectList id="chooseSubmissionType" value="{!selectedSubmissionType}" size="1">
+                        <apex:selectOption itemValue=""  itemLabel="Select..."/>
+                        <apex:selectOption itemValue="Single"     itemLabel="Single"/>
+                        <apex:selectOption itemValue="Multiple"     itemLabel="Multiple"/>
+                    </apex:selectList> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="testing">
+                	<apex:outputPanel id="testPanel">
+                        <apex:outputLabel id="label_selectedExternalWI" value="SELECTED: " for="selectedExternalWI"/>
+                        <apex:outputText id="selectedExternalWI" value="{!selectedExternalWI}"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+
+            </apex:pageBlockSection>    
+        </apex:pageBlock>
+
+    
+    
+    
+    
+        
+   
+    
+    <!--
+<c:WebformDetailsBlock rendered="true" webformFSType="Hetch Hetchy" submissionType="Single"></c:WebformDetailsBlock>
+
+<c:WebformDetailsBlock webformFSType="Hetch Hetchy" submissionType="Single">
+<c:webformdetailsblock webformFSType="{!selectedExternalWI}" submissionType="{!selectedSubmissionType}"></c:webformdetailsblock>
+
+    -->
+
+</apex:component>

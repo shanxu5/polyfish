@@ -1,0 +1,33 @@
+<apex:page controller="LoggedinUsersController" title="Currently Logged In User">
+  <apex:form >
+    <div id="Header">
+        
+      <h1 style="font-family:verdana; font-size:150%;">Billing Operations - Currently logged in Users</h1></div>
+      
+      <div id="button" style="text-align:center;">  <apex:commandButton onclick="document.location.reload(true)" value="Refresh" id="RefreshButton"/> </div>
+      
+      &nbsp;&nbsp;
+      
+    <apex:pageBlock >
+    <apex:pageBlockTable value="{!pageHelperList}" var="ph">
+    <apex:column headerValue="User Name">
+        <apex:outputText value="{!ph.userRec.Name}"/>
+    </apex:column>
+        <apex:column headerValue="User Profile">
+        <apex:outputText value="{!ph.userRec.Profile.name}"/>
+    </apex:column>
+        <apex:column headerValue="User Supervisor">
+        <apex:outputText value="{!ph.userRec.Supervisor__r.name}"/>
+    </apex:column>
+        
+        <apex:column headerValue="Last Login time">
+        <apex:outputText value="{!ph.userRec.LastLoginDate} "/>
+            
+    </apex:column>
+	<apex:column headerValue="Session Valid Until">
+        <apex:outputText value="{!ph.validUntil} "/>
+    </apex:column>
+</apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

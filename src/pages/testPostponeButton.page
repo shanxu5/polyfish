@@ -1,0 +1,6 @@
+<apex:page standardController="Case" extensions="Tae_Test" showHeader="false" sidebar="false" >
+    <script>
+    alert('something');
+    
+    </script>
+ </apex:page>

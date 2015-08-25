@@ -1,0 +1,225 @@
+<apex:page showHeader="true" sidebar="true" controller="WebFormController" cache="true" expires="3600" id="page">
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" />
+    <apex:form id="webform">
+        <script >
+            function checkCsv(obj) { 
+            var path = obj.value;
+            var ext = path.substring(path.lastIndexOf('.') + 1);
+            
+            if(ext !="csv")
+                {
+                    obj.value = null;
+                    window.alert("Please select only .csv file");
+                    return false;
+                }
+            }
+            
+            function checkAttachmentExtensions(obj) { 
+            var validExtensions = ["doc", "docx", "zip", "xls", "xlsx", "csv", "pdf", "jpeg", "png", "txt"];
+            var path = obj.value;
+            var ext = path.substring(path.lastIndexOf('.') + 1);
+            
+            if(validExtensions.indexOf(ext) < 0)
+                {
+                    obj.value = null;
+                    window.alert("Please select only files that are extesions of " + validExtensions);
+                    return false;
+                }
+            }
+        </script>
+        <apex:pageBlock title="Request Form">
+        <apex:messages style="color:red" rendered="{!((submissionTypeSelected == false && csvErrorList.size != 0) || (submissionTypeSelected == true && selectedRequestType == 'Miscellaneous Webform'))}"/>
+        <!-- ============ section One: to be replaced with new code ============== -->
+        <apex:pageBlock title="Request Type">
+<!--        <apex:form styleClass="requestform">-->
+            <apex:actionRegion >
+            <apex:pageBlockSection title="Select Work Item and Submission Type" columns="2">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Work Item Type"/>
+                    <apex:selectList value="{!selectedRequestType}" size="1">   
+                        <apex:selectOptions value="{!requestTypeSelection}" />
+                        <apex:actionSupport event="onchange" reRender="blocks2-5" action="{!reloadRequestType}"/>
+                    </apex:selectList> 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Submission Type"/>
+                    <apex:selectList value="{!selectedSubmissionType}" size="1" >   
+                        <apex:selectOptions value="{!submissionTypeSelection}" />
+                        <apex:actionSupport event="onchange" reRender="blocks2-5"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            </apex:actionRegion>
+<!--        </apex:form>-->
+        </apex:pageBlock>
+
+        <!-- output panel to control rendering blocks 2-5 -->
+        <apex:outputPanel id="blocks2-5">
+            <!-- ================ Block Two: infosection ================ -->
+                <apex:pageBlock id="sectionTwo" title="Requestor Information" rendered="{!IF(AND(NOT(ISBLANK(selectedRequestType)), NOT(ISBLANK(selectedSubmissionType))) ,true,false)}">
+                    <apex:pageBlockSection > 
+                        <apex:inputField id="requestorName" label="Requestor's Name" value="{!webFormMaster.Requestor_s_Name__c}" rendered="{!fieldSettingUt.showFieldMap['Requestor_s_Name__c']}" required="{!fieldSettingUt.requiredFieldMap['Requestor_s_Name__c']}"/> 
+                        <apex:inputCheckbox label="Critical" title="Critical" value="{!webFormMaster.Critical_Request__c}" rendered="{!IF($Site.Prefix == '/internal', true, false)}"/>
+                        
+                        <!-- E-mail: &nbsp; &nbsp; <apex:inputText onchange="{!Email}"/>&nbsp; &nbsp;&nbsp; &nbsp; -->
+                        <apex:inputField id="requestorEmail" value="{!webFormMaster.Requestor_s_Email__c}" rendered="{!fieldSettingUt.showFieldMap['Requestor_s_Email__c']}" required="{!fieldSettingUt.requiredFieldMap['Requestor_s_Email__c']}"/>
+                        <apex:inputCheckbox title="Notification" value="{!webFormMaster.Notification_of_Completion_Required__c}"/> 
+                        <apex:outputPanel rendered="{!IF(selectedRequestType='Miscellaneous Webform',true,false)}" >
+                            <!-- <apex:outputText id="password" value="Password" />
+                            <apex:inputText value="{!password}" required="true"/>  -->
+                            <apex:outputText id="password" value="Password" style="margin-right:13px"/>
+                            <span class="requiredInput" >
+                                <div class="requiredBlock" style="height:20px; top: -3px"></div>
+                                <apex:inputText value="{!password}"/>
+                            </span>
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>              
+            <!-- END ========== Block Two: infosection ================ -->
+            
+            <!-- =========== Block Three: WF Field ================== -->
+            <apex:pageBlock id="sectionThree" title="Billing Ops Work Item Webform" rendered="{!AND(NOT(ISBLANK(selectedRequestType)), NOT(ISBLANK(selectedSubmissionType)))}">
+                <apex:pageBlockSection rendered="{!submissionTypeSelected}" id="singleWF">
+                    <apex:inputfield value="{!webformDetailRequest.Account_ID__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Account_ID__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Account_ID__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Service_Agreement_ID__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Service_Agreement_ID__c'],true,false)}"  required="{!IF(fieldSettingUt.requiredFieldMap['Service_Agreement_ID__c'],true,false)}"/>
+                    <apex:inputfield value="{!webformDetailRequest.Service_Point_ID__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Service_Point_ID__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Service_Point_ID__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Field_Order_ID__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Field_Order_ID__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Field_Order_ID__c'],true,false)}"/>
+                    <apex:inputfield value="{!webformDetailRequest.Premise_ID__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Premise_ID__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Premise_ID__c'],true,false)}"/>
+                    <apex:inputfield value="{!webformDetailRequest.Person_ID__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Person_ID__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Person_ID__c'],true,false)}"/>
+                    <apex:inputfield value="{!webformDetailRequest.Meter_Number_Meter_Badge_Number__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Meter_Number_Meter_Badge_Number__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Meter_Number_Meter_Badge_Number__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Retro_Start_Date__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Retro_Start_Date__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Retro_Start_Date__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Retro_End_Date__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Retro_End_Date__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Retro_End_Date__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Badge_Set_Date__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Badge_Set_Date__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Badge_Set_Date__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Correct_Constant__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Correct_Constant__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Correct_Constant__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Correction_Date__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Correction_Date__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Correction_Date__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.Incorrect_Constant__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Incorrect_Constant__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Incorrect_Constant__c'],true,false)}" />
+                    <apex:inputfield value="{!webformDetailRequest.RAP_Work_ID__c}" rendered="{!IF(fieldSettingUt.showFieldMap['RAP_Work_ID__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['RAP_Work_ID__c'],true,false)}" />
+                    <apex:inputField value="{!webformDetailRequest.Details_of_Request__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Details_of_Request__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Details_of_Request__c'],true,false)}" />
+                    <apex:inputField value="{!fieldSettingUt.webformFS.Info__c}"/>                                        
+                </apex:pageBlockSection>           
+                <apex:pageBlockSection id="multipleWF" rendered="{!IF(selectedSubmissionType='Multiple', true, false)}" >
+                    <apex:inputField value="{!webformDetailRequest.Details_of_Request__c}" rendered="{!IF(fieldSettingUt.showFieldMap['Details_of_Request__c'],true,false)}" required="{!IF(fieldSettingUt.requiredFieldMap['Details_of_Request__c'],true,false)}" />
+                </apex:pageBlockSection>  
+            </apex:pageBlock>
+            <!-- END =============== Block Three: WF Field ================ -->
+            
+            <!-- =============== Block Four: CSV ===================-->
+            <!-- <apex:pageBlock id="sectionFour" title="CSV Attachment" rendered="{!AND(NOT(ISBLANK(selectedRequestType)), IF(selectedSubmissionType='Multiple',true,false))}"> -->
+            <apex:outputPanel id="sectionFour" style="display : {!IF(AND(NOT(ISBLANK(selectedRequestType)), IF(selectedSubmissionType='Multiple',true,false)), 'block', 'none')}">
+            <apex:pageBlock title="CSV Attachment">
+                <apex:pageBlockSection columns="2">
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLink value="{!URLFOR($Action.Document.Download, template.Id)}" target="_blank" rendered="{!NOT(ISNULL(template.Id))}">Download CSV Template</apex:outputLink>
+                    </apex:pageBlockSectionItem>
+                    <apex:actionRegion >
+                    <apex:commandLink value="help" action="{!showPopup}" reRender="helpPopup">
+                            <!--<apex:param name="workItemType" assignTo="{!workItemType}" value="{!selectedRequestType}"/>-->
+                    </apex:commandLink>
+                    </apex:actionRegion>
+                    <apex:pageBlockSectionItem >
+                        <apex:inputFile value="{!csvBody}" fileName="{!csvFileName}" id="csvInput" onchange="checkCsv(this)"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>               
+            </apex:pageBlock> 
+            </apex:outputPanel>
+            <!-- END =============== Block Four: CSV ==========================-->
+            
+            <!-- =================== Block Five: Attach ====================== -->
+               <!--  <apex:pageBlock id="sectionFive" title="Supporting document" rendered="{!IF(NOT(ISBLANK(selectedRequestType)) && NOT(ISBLANK(selectedSubmissionType)),true,false)}"> -->
+                <apex:outputPanel id="sectionFive" style="display : {!IF(NOT(ISBLANK(selectedRequestType)) && NOT(ISBLANK(selectedSubmissionType)),'block', 'none')}">             
+                <apex:pageBlock title="Supporting Document(s)" >
+                    <apex:pageBlockSection columns="1">                                  
+                        <apex:repeat value="{!chatterFiles}" var="a">
+                            <apex:inputFile value="{!a.VersionData}" fileName="{!a.Title}" onchange="checkAttachmentExtensions(this)"/>
+                        </apex:repeat>                        
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+                </apex:outputPanel>
+            <!-- END ================= Block Five: Attach ================= -->
+            <div align="center" id="submitButton">
+                <apex:commandButton value="Submit" rendered="{!AND(NOT(ISBLANK(selectedRequestType)), NOT(ISBLANK(selectedSubmissionType)))}" action="{!insertChild}"/>
+            </div>
+        </apex:outputPanel><!-- output panel to control rendering blocks 2-5 -->
+
+    </apex:pageBlock><!-- Request form page block -->
+    
+    <apex:outputPanel id="helpPopup">
+        <apex:outputPanel id="popInnerOutputPnl" styleClass="customPopup" layout="block" rendered="{!displayPopUp}">
+            <apex:actionRegion >
+            <apex:commandButton value="X" title="Close" action="{!closePopup}" styleClass="closeButton" rerender="popup"></apex:commandButton>
+            </apex:actionRegion>
+            <apex:pageBlock >
+                <H1>Template Requirements: 
+                •   Format is .CSV file
+                •   Max of 200 rows
+                Click on the template to download and save it to your local computer.  When the file is first downloaded it will be in the correct format, .CSV, if it is saved as anything other than .CSV, here are instructions to re-save it as .CSV.
+                How to save file as .CSV:
+                •   Open the Import file and select: File | Save As
+                •   Change Save As Type to .CSV (Comma Delimited)
+                •   Click OK
+                •   Click Yes
+                •   This will convert these file types to .CSV
+
+                In order to add leading zeros to any field, the field type must be text.  Here are instructions on how to change a field type to text. 
+                •   Select the column you would like to format
+                •   Right click 
+                •   Click on Format Cells…
+                •   Go to the Number tab
+                •   Select Text
+                •   Click OK
+
+                NOTE: If you reopen the saved .CSV file in Excel, the formatting is not preserved.  Save the formatting of ID’s for your last step.
+                Any additional columns added to the template will be discarded.  If you have any additional information please add it to the Details of Request field on the webform. 
+                </H1>
+            </apex:pageBlock>
+            <apex:pageBlock >
+                <apex:pageBlockTable title="Field Settings" value="{!fieldSettingUt.webFormFs}" columns="6" var="fs">
+                    <apex:column value="{!fs.Account_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['Account_ID__c']}" headerValue="Account ID"/>
+                    <apex:column value="{!fs.Service_Agreement_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['Service_Agreement_ID__c']}" headerValue="Service Agreement ID" />
+                    <apex:column value="{!fs.Service_Point_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['Service_Point_ID__c']}" headerValue="Service Point ID"/>
+                    <apex:column value="{!fs.Field_Order_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['Field_Order_ID__c']}" headerValue="Field Order ID"/>
+                    <apex:column value="{!fs.Premise_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['Premise_ID__c']}" headerValue="Premise ID"/>
+                    <apex:column value="{!fs.Person_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['Person_ID__c']}" headerValue="Person ID"/>
+                    <apex:column value="{!fs.Meter_Number_Meter_Badge_Number__c}" rendered="{!fieldSettingUt.requiredFieldMap['Meter_Number_Meter_Badge_Number__c']}" headerValue="Meter Number Meter Badge Number"/>
+                    <apex:column value="{!fs.Retro_Start_Date__c}" rendered="{!fieldSettingUt.requiredFieldMap['Retro_Start_Date__c']}" headerValue="Retro Start Date" />
+                    <apex:column value="{!fs.Retro_End_Date__c}" rendered="{!fieldSettingUt.requiredFieldMap['Retro_End_Date__c']}" headerValue="Retro End Date"/>
+                    <apex:column value="{!fs.Badge_Set_Date__c}" rendered="{!fieldSettingUt.requiredFieldMap['Badge_Set_Date__c']}" headerValue="Badge Set Date"/>
+                    <apex:column value="{!fs.Correct_Constant__c}" rendered="{!fieldSettingUt.requiredFieldMap['Correct_Constant__c']}" headerValue="Correct Constant" />
+                    <apex:column value="{!fs.Correction_Date__c}" rendered="{!fieldSettingUt.requiredFieldMap['Correction_Date__c']}" headerValue="Correction Date"/>
+                    <apex:column value="{!fs.Incorrect_Constant__c}" rendered="{!fieldSettingUt.requiredFieldMap['Incorrect_Constant__c']}" headerValue="Incorrect Constant"/>
+                    <apex:column value="{!fs.RAP_Work_ID__c}" rendered="{!fieldSettingUt.requiredFieldMap['RAP_Work_ID__c']}" headerValue="RAP Work ID"/>
+                    <apex:column value="{!fs.Details_of_Request__c}" rendered="{!fieldSettingUt.requiredFieldMap['Details_of_Request__c']}" headerValue="Details of Request"/>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    </apex:form>
+<style type="text/css">
+    .customPopup {
+        background-color: white;
+        border-style: solid;
+        border-width: 2px;
+        left: 20%;
+        padding:10px;
+        position: absolute;
+        z-index: 9999;
+        width: 500px;
+        top:20%;
+    }
+
+    .disabledTextBox {
+        background-color: white;
+        border:1px solid;
+        color:black;
+        cursor:default;
+        width:90px;
+        display: table;
+        padding: 2px 1px;
+        text-align: right;
+    }
+
+    .closeButton {
+        float:right;
+    }
+</style>
+</apex:page>

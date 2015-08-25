@@ -1,0 +1,12 @@
+<apex:page controller="UploadAttachment">
+  <apex:form >
+      <apex:pageBlock >
+      	<apex:pageBlockSection >
+	      <apex:repeat value="{!files}" var="a">
+	      	<apex:inputFile value="{!a.VersionData}" fileName="file1"/>
+	      </apex:repeat>
+	      <apex:commandButton value="upload" action="{!uploadFile}"/>
+        </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

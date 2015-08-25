@@ -1,0 +1,18 @@
+<apex:component controller="CSVComponentController">
+    <apex:pageBlock title="CSV Attachment">
+        <apex:form >  
+            <apex:pageBlockSection > 
+            <html>
+            <body>
+            <table style="width:110%">            
+            <tr>
+            <td>Attachment Name : </td><td><input type='text' id='FileName' name='filename' onchange="{!CSVName}"/></td>
+            <td><input type='file' id='RequestAttachment' onchange='converttoBase64();' /></td>
+            </tr>
+            </table>            
+            </body>
+            </html>         
+            </apex:pageBlockSection>                 
+        </apex:form> 
+    </apex:pageBlock> 
+</apex:component>
